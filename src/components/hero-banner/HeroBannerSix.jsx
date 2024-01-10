@@ -12,7 +12,7 @@ const HeroBannerSix = () => {
             data-aos="fade-up"
             data-aos-duration="1200"
           >
-            Build your Next <span>Product</span> with Deski.
+            Build your <span>Product</span> with Driver007.
           </h1>
           <p
             className="hero-sub-heading"
@@ -20,7 +20,7 @@ const HeroBannerSix = () => {
             data-aos-duration="1200"
             data-aos-delay="100"
           >
-            Deski delivered blazing fast, striking soludtion
+            Driver007 delivered blazing fast, striking soludtion
           </p>
           <div className="d-sm-flex align-items-center button-group">
             <div
@@ -38,7 +38,7 @@ const HeroBannerSix = () => {
               <span>See Intro Video</span>
             </div>
             <a
-              href="#"
+              href="https://apps.apple.com/in/app/driver007/id1470026880"
               className="d-flex align-items-center ios-button gr-bg-one hover-reverse-gr-bg-one order-sm-first"
               data-aos="fade-up"
               data-aos-duration="1200"
@@ -50,6 +50,16 @@ const HeroBannerSix = () => {
                 <strong>App store</strong>
               </div>
             </a>
+          <a
+                href="https://play.google.com/store/apps/details?id=com.sstech.driver007"
+                className="d-flex align-items-center ios-button gr-bg-one hover-reverse-gr-bg-one"
+              >
+                <img src="images/icon/playstore.svg" alt="icon" className="icon" />
+                <div>
+                  <span>Download on the</span>
+                  <strong>App store</strong>
+                </div>
+              </a>
           </div>
         </div>
         {/* End .col */}
@@ -59,7 +69,7 @@ const HeroBannerSix = () => {
         channel="youtube"
         autoplay
         isOpen={isOpen}
-        videoId="FDaF8_5dzzk"
+        videoId="w2RGv0-mPy0"
         onClose={() => setOpen(false)}
       />
     </>

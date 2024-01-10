@@ -6,16 +6,18 @@ import DocSlickAsNavTwo from "../../components/block-slider/DocSlickAsNavTwo";
 import FancyFeatureTwelve from "../../components/features/FancyFeatureTwelve";
 import Portfolio from "../../components/portfolio/Portfolio";
 import Testimonial from "../../components/testimonial/TestimonialFive";
+import FAQ from "../../components/testimonial/faq";
 import PricingFive from "../../components/pricing/PricingFive";
 import FooterSix from "../../components/footer/FooterSix";
 import Tilt from "react-parallax-tilt";
+import "./productLanding.css"
 
 const ProductLandingDark = () => {
   return (
     <div className="main-page-wrapper font-gordita dark-style lg-container p0">
       <Helmet>
         <title>
-          Product Landing Dark || Deski-Saas & Software React Template
+          Product Landing Dark || Driver007-Saas & Software React Template
         </title>
       </Helmet>
       {/* End Page SEO Content */}
@@ -34,17 +36,17 @@ const ProductLandingDark = () => {
             className="main-img ms-auto"
           />
           <img
-            src="images/assets/screen_05.png"
+            src="images/assets/Banner-716X569.png"
             alt="screen"
             className="screen-one"
           />
-          <div className="screen-two">
+          {/* <div className="screen-two">
             <img
               src="images/assets/screen_06.png"
               alt="screen"
               className="ms-auto"
             />
-          </div>
+          </div> */}
           <img
             src="images/shape/145.svg"
             alt="shape"
@@ -201,8 +203,16 @@ const ProductLandingDark = () => {
           </div>
         </div>
       </div>
-      {/* /.fancy-feature-fourteen */}
-
+      <div className="main-page-wrapper font-gordita dark-style lg-container p0">
+      <div className="container">
+          <div className="title-style-six">
+            <h2>
+              <span>FAQ</span>
+            </h2>
+          </div>
+        </div>
+      <FAQ />
+    </div>
       {/*=====================================================
 				Fancy Portfolio One
 			===================================================== */}
@@ -340,7 +350,7 @@ const ProductLandingDark = () => {
               </div>
               {/* /.title-style-six */}
               <a
-                href="#"
+                href="https://apps.apple.com/in/app/driver007/id1470026880"
                 className="d-flex align-items-center ios-button gr-bg-one hover-reverse-gr-bg-one"
               >
                 <img src="images/icon/apple.svg" alt="icon" className="icon" />
@@ -349,14 +359,24 @@ const ProductLandingDark = () => {
                   <strong>App store</strong>
                 </div>
               </a>
+              <a
+                href="https://play.google.com/store/apps/details?id=com.sstech.driver007"
+                className="d-flex align-items-center ios-button gr-bg-one hover-reverse-gr-bg-one"
+              >
+                <img src="images/icon/playstore.svg" alt="icon" className="icon" />
+                <div>
+                  <span>Download on the</span>
+                  <strong>App store</strong>
+                </div>
+              </a>
+              </div>
             </div>
             {/* End .col */}
-          </div>
           {/* End .row */}
           <Tilt>
             <div className="screen-meta">
               <img
-                src="images/assets/screen_10.png"
+                src="images/assets/Banner-1157X339.png"
                 alt="screen"
                 className="m-auto"
               />
@@ -402,15 +422,15 @@ const ProductLandingDark = () => {
             <FooterSix />
             <p className="copyright">
               {" "}
-              Copyright @{new Date().getFullYear()}{" "}
+              Copyright @ 2011 to {new Date().getFullYear()}{" "}
               <a
-                href="https://themeforest.net/user/ib-themes/portfolio"
+                href="https://www.sstechsystem.com/"
                 target="_blank"
                 rel="noreferrer"
               >
-                ib-themes
+                SSTech System Solutions Pvt Ltd,
               </a>{" "}
-              inc.
+              India.
             </p>
           </div>
           <img

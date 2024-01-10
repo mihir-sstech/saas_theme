@@ -5,31 +5,31 @@ import "slick-carousel/slick/slick-theme.css";
 
 const PortfolioImages = [
   {
-    img: "img_73",
+    img: "Product-01-400X540",
     altName: "Screen 1",
   },
   {
-    img: "img_74",
+    img: "Product-02-400X540",
     altName: "Screen 2",
   },
   {
-    img: "img_75",
+    img: "Product-03-400X540",
     altName: "Screen 3",
   },
   {
-    img: "img_76",
+    img: "Product-04-400X540",
     altName: "Screen 4",
   },
   {
-    img: "img_75",
+    img: "Product-01-400X540",
     altName: "Screen 5",
   },
   {
-    img: "img_76",
+    img: "Product-02-400X540",
     altName: "Screen 6",
   },
   {
-    img: "img_73",
+    img: "Product-03-400X540",
     altName: "Screen 7",
   },
 ];

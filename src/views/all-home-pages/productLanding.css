@@ -1,0 +1,14 @@
+.faq {
+  width: 93%;
+  padding: 20px;
+  margin-left: 72px;
+}
+.accordion-button {
+  position: relative;
+  display: flex;
+  width: 100%;
+  font-size: 1rem;
+  color: var(--bs-accordion-btn-color);
+  text-align: left;
+  height: 48px;
+}

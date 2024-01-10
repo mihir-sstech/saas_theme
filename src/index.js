@@ -7,7 +7,7 @@ import "./assets/main.scss";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <BrowserRouter basename="/">
+  <BrowserRouter basename="/driver007_frontend">
     <App />
   </BrowserRouter>
 );

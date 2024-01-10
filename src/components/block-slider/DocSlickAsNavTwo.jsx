@@ -75,13 +75,13 @@ export default function DocSlickAsNavTwo() {
           ref={(slider1) => setNav1(slider1)}
         >
           <div className="carousel-item">
-            <img src="images/assets/screen_07.png" alt="feature" />
+            <img src="images/assets/Banner-1160X700.png" alt="feature" />
           </div>
           <div className="carousel-item">
-            <img src="images/assets/screen_08.png" alt="feature" />
+            <img src="images/assets/Banner-1160X700.png" alt="feature" />
           </div>
           <div className="carousel-item">
-            <img src="images/assets/screen_09.png" alt="feature" />
+            <img src="images/assets/Banner-1160X700.png" alt="feature" />
           </div>
         </Slider>
         {/* Top Image slide */}
