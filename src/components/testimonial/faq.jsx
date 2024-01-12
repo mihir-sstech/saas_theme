@@ -97,7 +97,6 @@ const Faq = () => {
                 aria-controls={`collapse-${index}`}
                 style={{
                   color: "rgba(255, 255, 255, 0.6)",
-                  
                   fontSize: "17px",
                   background:
                     openQuestion === index
