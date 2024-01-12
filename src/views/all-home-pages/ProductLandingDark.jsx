@@ -21,7 +21,6 @@ const ProductLandingDark = () => {
         </title>
       </Helmet>
       {/* End Page SEO Content */}
-
       <HeaderLandingDark />
       {/* End HeaderLanding */}
 
@@ -30,13 +29,18 @@ const ProductLandingDark = () => {
 		  ==============================================  */}
       <div className="hero-banner-six" id="home">
         <div className="illustration-content">
-          <img
-            src="images/shape/144.svg"
+          {/* <img
+            src="images/shape/144-01.svg"
             alt="shape"
             className="main-img ms-auto"
-          />
-          <img
+          /> */}
+          {/* <img
             src="images/assets/Banner-716X569.png"
+            alt="screen"
+            className="screen-one"
+          /> */}
+              <img
+            src="images/assets/Delivery.gif"
             alt="screen"
             className="screen-one"
           />
@@ -366,7 +370,7 @@ const ProductLandingDark = () => {
                 <img src="images/icon/playstore.svg" alt="icon" className="icon" />
                 <div>
                   <span>Download on the</span>
-                  <strong>App store</strong>
+                  <strong>Play store</strong>
                 </div>
               </a>
               </div>

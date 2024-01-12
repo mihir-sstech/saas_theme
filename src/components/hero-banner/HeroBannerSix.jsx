@@ -57,7 +57,7 @@ const HeroBannerSix = () => {
                 <img src="images/icon/playstore.svg" alt="icon" className="icon" />
                 <div>
                   <span>Download on the</span>
-                  <strong>App store</strong>
+                  <strong>Play store</strong>
                 </div>
               </a>
           </div>
