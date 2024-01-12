@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 const Faq = () => {
   const [openQuestion, setOpenQuestion] = useState(0);
- 
+
   const handleToggle = (index) => {
     setOpenQuestion(openQuestion === index ? null : index);
   };
- 
+
   const faqData = [
     {
       question: "Can I use Upper on multiple devices?",
@@ -73,16 +73,22 @@ const Faq = () => {
         "Yes, as soon as you will add addresses on the Upper Route Planner, the software will automatically save them for your future use.",
     },
   ];
- 
+
   return (
-    <div className="faq mt-10">
+    <div
+    data-aos="fade-up"
+    data-aos-duration="1200"
+    data-aos-delay="100">
+
+    <div className="faq mt-10 "
+    >
       {faqData.map((faq, index) => (
         <div key={index}>
           <div className="accordion-item" style={{ marginBottom: "7px" }}>
             <h2 className="accordion-header" id={`heading-${index}`}>
               <button
                 className={`accordion-button ${
-                  openQuestion === index ? "" : "collapsed"
+                  openQuestion === index ? "opened" : "collapsed"
                 }`}
                 type="button"
                 data-bs-toggle="collapse"
@@ -91,11 +97,15 @@ const Faq = () => {
                 aria-controls={`collapse-${index}`}
                 style={{
                   color: "rgba(255, 255, 255, 0.6)",
+                  
                   fontSize: "17px",
-                  background: "rgba(255, 255, 255, 0.1)",
+                  background:
+                    openQuestion === index
+                      ? "gray"
+                      : "rgba(255, 255, 255, 0.1)",
                   borderBottom: "1px solid rgb(101 101 101)",
                   borderRadius: "5px",
-                  padding: "10px 20px"
+                  padding: "10px 20px",
                 }}
                 onClick={() => handleToggle(index)}
               >
@@ -110,7 +120,7 @@ const Faq = () => {
                     fontSize: "30px",
                   }}
                 >
-                  +
+                 {openQuestion === index ? "-" : "+"}
                 </span>
               </button>
             </h2>
@@ -133,8 +143,8 @@ const Faq = () => {
         </div>
       ))}
     </div>
+    </div>
   );
 };
- 
+
 export default Faq;
- 

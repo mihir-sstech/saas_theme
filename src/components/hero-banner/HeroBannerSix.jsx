@@ -3,6 +3,13 @@ import ModalVideo from "react-modal-video";
 
 const HeroBannerSix = () => {
   const [isOpen, setOpen] = useState(false);
+  const openImageInNewTab = (imgUrl) => {
+    const newTab = window.open();
+   
+    if (newTab) {
+      newTab.location.href = imgUrl;
+    }
+  };
   return (
     <>
       <div className="row">
@@ -37,9 +44,11 @@ const HeroBannerSix = () => {
               />
               <span>See Intro Video</span>
             </div>
-            <a
-              href="https://apps.apple.com/in/app/driver007/id1470026880"
+            <div
+              // href="https://apps.apple.com/in/app/driver007/id1470026880"
+              onClick={()=>{openImageInNewTab("https://apps.apple.com/in/app/driver007/id1470026880")}}
               className="d-flex align-items-center ios-button gr-bg-one hover-reverse-gr-bg-one order-sm-first"
+              style={{cursor:"pointer"}}
               data-aos="fade-up"
               data-aos-duration="1200"
               data-aos-delay="200"
@@ -49,17 +58,21 @@ const HeroBannerSix = () => {
                 <span>Download on the</span>
                 <strong>App store</strong>
               </div>
-            </a>
-          <a
-                href="https://play.google.com/store/apps/details?id=com.sstech.driver007"
-                className="d-flex align-items-center ios-button gr-bg-one hover-reverse-gr-bg-one"
+            </div>
+          <div
+                onClick={()=>{openImageInNewTab("https://play.google.com/store/apps/details?id=com.sstech.driver007")}}
+                className="d-flex align-items-center ios-button gr-bg-one hover-reverse-gr-bg-one "
+                style={{cursor:"pointer"}}
+                data-aos="fade-up"
+              data-aos-duration="1200"
+              data-aos-delay="200"
               >
                 <img src="images/icon/playstore.svg" alt="icon" className="icon" />
                 <div>
                   <span>Download on the</span>
                   <strong>Play store</strong>
                 </div>
-              </a>
+              </div>
           </div>
         </div>
         {/* End .col */}

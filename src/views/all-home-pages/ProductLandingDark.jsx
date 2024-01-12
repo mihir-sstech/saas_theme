@@ -13,6 +13,13 @@ import Tilt from "react-parallax-tilt";
 import "./productLanding.css"
 
 const ProductLandingDark = () => {
+  const openImageInNewTab = (imgUrl) => {
+    const newTab = window.open();
+   
+    if (newTab) {
+      newTab.location.href = imgUrl;
+    }
+  };
   return (
     <div className="main-page-wrapper font-gordita dark-style lg-container p0">
       <Helmet>
@@ -353,8 +360,9 @@ const ProductLandingDark = () => {
                 </h2>
               </div>
               {/* /.title-style-six */}
-              <a
-                href="https://apps.apple.com/in/app/driver007/id1470026880"
+              <div
+                onClick={()=>{openImageInNewTab("https://apps.apple.com/in/app/driver007/id1470026880")}}
+                style={{cursor:"pointer"}}
                 className="d-flex align-items-center ios-button gr-bg-one hover-reverse-gr-bg-one"
               >
                 <img src="images/icon/apple.svg" alt="icon" className="icon" />
@@ -362,9 +370,10 @@ const ProductLandingDark = () => {
                   <span>Download on the</span>
                   <strong>App store</strong>
                 </div>
-              </a>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.sstech.driver007"
+              </div>
+              <div
+                onClick={()=>{openImageInNewTab("https://play.google.com/store/apps/details?id=com.sstech.driver007")}}
+                style={{cursor:"pointer"}}
                 className="d-flex align-items-center ios-button gr-bg-one hover-reverse-gr-bg-one"
               >
                 <img src="images/icon/playstore.svg" alt="icon" className="icon" />
@@ -372,7 +381,7 @@ const ProductLandingDark = () => {
                   <span>Download on the</span>
                   <strong>Play store</strong>
                 </div>
-              </a>
+              </div>
               </div>
             </div>
             {/* End .col */}

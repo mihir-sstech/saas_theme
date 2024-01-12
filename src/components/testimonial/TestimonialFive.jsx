@@ -8,7 +8,7 @@ export default function TestimonialThree() {
     dots: false,
     arrow: true,
     infinite: true,
-    speed: 900,
+    speed: 100,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: false,
