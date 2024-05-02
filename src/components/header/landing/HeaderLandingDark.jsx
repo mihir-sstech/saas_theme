@@ -42,7 +42,7 @@ const HeaderLandingDark = () => {
         <div className="d-flex align-items-center justify-content-center">
           <div className="logo custom-logo">
             <Link to="/ ">
-              <img src="images/logo/logodriver.png" alt="brand" />
+              <img src="images/logo/logodriver1.png" alt="brand" />
             </Link>
           </div>
           <nav id="mega-menu-holder" className="navbar navbar-expand-lg">
@@ -137,7 +137,7 @@ const HeaderLandingDark = () => {
         </div>
 
         <Scrollspy
-          className="navbar-nav  "
+          className="navbar-nav"
           items={[
             "home",
             "about",
@@ -219,7 +219,7 @@ const HeaderLandingDark = () => {
             {/* /.left-side */}
 
             <div className="right-side">
-              <h2 className="form-title">Contact us</h2>
+              <h2 className="form-title">Contact ussss</h2>
               <HeaderPopupForm />
             </div>
             {/*  /.right-side */}

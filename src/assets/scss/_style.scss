@@ -100,7 +100,7 @@ Primary use:  ib-themes
 ====================================================================
 
  ***/
-.ctn-preloader {
+ .ctn-preloader {
   align-items: center;
   -webkit-align-items: center;
   display: flex;
@@ -3812,7 +3812,7 @@ body .shop-btn-two:hover {
 }
 .accordion-style-two {
   .card {
-    background: #fff;
+    background: #c54747;
     margin-bottom: 0;
     border-radius: 0;
     border: none;
@@ -16615,4 +16615,37 @@ body .shop-btn-two:hover {
 }
 .checkout-section .theme-btn-seven:hover {
   background: var(--purple-blue);
+}
+@media only screen and (max-width: 991px) {
+  .hero-banner-six .illustration-content .screen-one {
+    position: relative;
+    width: 100%;
+    top: 10%; 
+    right: 0; 
+    z-index: 1;
+    animation: jumpTwo 10s infinite linear;
+  }
+  .hero-banner-six .illustration-content .shape-five,
+  .hero-banner-six .illustration-content .shape-four,
+  .hero-banner-six .illustration-content .shape-six {
+    display: none; 
+  }
+
+}
+
+@media only screen and (max-width: 768px) {
+  .hero-banner-six .illustration-content .screen-one {
+    position: relative;
+    width: 100%;
+    top: 10%; 
+    right: 0; 
+    z-index: 1;
+    animation: jumpTwo 10s infinite linear;
+  }
+  .hero-banner-six .illustration-content .shape-five,
+  .hero-banner-six .illustration-content .shape-four,
+  .hero-banner-six .illustration-content .shape-six {
+    display: none;
+  }
+
 }

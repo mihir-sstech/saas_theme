@@ -15,7 +15,6 @@ import "./productLanding.css"
 const ProductLandingDark = () => {
   const openImageInNewTab = (imgUrl) => {
     const newTab = window.open();
-   
     if (newTab) {
       newTab.location.href = imgUrl;
     }
@@ -34,68 +33,53 @@ const ProductLandingDark = () => {
       {/*=============================================
 			Theme Hero Banner
 		  ==============================================  */}
-      <div className="hero-banner-six" id="home">
-        <div className="illustration-content">
-          {/* <img
-            src="images/shape/144-01.svg"
-            alt="shape"
-            className="main-img ms-auto"
-          /> */}
-          {/* <img
-            src="images/assets/Banner-716X569.png"
-            alt="screen"
-            className="screen-one"
-          /> */}
-              <img
-            src="images/assets/Delivery.gif"
-            alt="screen"
-            className="screen-one"
-          />
-          {/* <div className="screen-two">
-            <img
-              src="images/assets/screen_06.png"
-              alt="screen"
-              className="ms-auto"
-            />
-          </div> */}
-          <img
-            src="images/shape/145.svg"
-            alt="shape"
-            className="shapes shape-one"
-          />
-          <img
-            src="images/shape/146.svg"
-            alt="shape"
-            className="shapes shape-two"
-          />
-          <img
-            src="images/shape/147.svg"
-            alt="shape"
-            className="shapes shape-three"
-          />
-          <img
-            src="images/shape/148.svg"
-            alt="shape"
-            className="shapes shape-four"
-          />
-          <img
-            src="images/shape/149.svg"
-            alt="shape"
-            className="shapes shape-five"
-          />
-          <img
-            src="images/shape/150.png"
-            alt="shape"
-            className="shapes shape-six"
-          />
-        </div>
-        {/* End .illustration-content */}
+      <div class="main-dev-img sm:mt-1">
+  <div class="hero-banner-six w-full md:w-auto" id="home">
+    <div class="illustration-content flex flex-wrap justify-center sm:justify-start md:justify-start">
+      <img
+        src="images/assets/Delivery.gif"
+        alt="screen"
+        class="screen-one mt-11 sm:mt-0 flex"
+      />
+      <img
+        src="images/shape/145.svg"
+        alt="shape"
+        class="shapes shape-one flex"
+      />
+      <img
+        src="images/shape/146.svg"
+        alt="shape"
+        class="shapes shape-two flex"
+      />
+      <img
+        src="images/shape/147.svg"
+        alt="shape"
+        class="shapes shape-three flex"
+      />
+      <img
+        src="images/shape/148.svg"
+        alt="shape"
+        class="shapes shape-four flex"
+      />
+      <img
+        src="images/shape/149.svg"
+        alt="shape"
+        class="shapes shape-five flex"
+      />
+      <img
+        src="images/shape/150.png"
+        alt="shape"
+        class="shapes shape-six flex"
+      />
+    </div>
 
-        <div className="container">
-          <HeroBannerSix />
-        </div>
-        {/* End .container */}
-      </div>
+    <div class="container mx-auto flex sm:mr-56">
+      <HeroBannerSix />
+    </div>
+  </div>
+
+</div>
+
       {/* /.hero-banner-six */}
 
       {/*=============================================

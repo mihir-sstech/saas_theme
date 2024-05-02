@@ -8,15 +8,15 @@ const Faq = () => {
 
   const faqData = [
     {
-      question: "Can I use Upper on multiple devices?",
+      question: "Can I use Driver007 on multiple devices?",
       answer:
-        "Of course, Upper Route Planner syncs seamlessly across multiple devices. All you have to do is log in with your Upper Route Planner credentials and start managing your delivery operations.",
+        "Of course, Driver007 Route Planner syncs seamlessly across multiple devices. All you have to do is log in with your Driver007 Route Planner credentials and start managing your delivery operations.",
     },
     {
       question:
-        "What are the payment options to avail Upper Route Planner subscription?",
+        "What are the payment options to avail Driver007 Route Planner subscription?",
       answer:
-        "At Upper, we accept debit card, credit card or Stripe as mode of payment to avail monthly or yearly subscription plan.",
+        "At Driver007, we accept debit card, credit card or Stripe as mode of payment to avail monthly or yearly subscription plan.",
     },
     {
       question: "What is a 7 days free trial?",
@@ -47,9 +47,9 @@ const Faq = () => {
       ),
     },
     {
-      question: "Can I create route for multiple drivers on Upper?",
+      question: "Can I create route for multiple drivers on Driver007?",
       answer:
-        "For sure, Upper Route Planner allows you to add up to 25 delivery drivers. In fact, you can plan routes for all your drivers simultaneously using Upper Route Planner.",
+        "For sure, Driver007 Route Planner allows you to add up to 25 delivery drivers. In fact, you can plan routes for all your drivers simultaneously using Driver007 Route Planner.",
     },
     {
       question: "Is it possible to import more than one CSV file?",
@@ -65,12 +65,12 @@ const Faq = () => {
     {
       question: "Can I view route distance in miles?",
       answer:
-        "Absolutely, Upper allows its users to select miles or kms as a default option to display route distance.",
+        "Absolutely, Driver007 allows its users to select miles or kms as a default option to display route distance.",
     },
     {
-      question: "Will Upper save my imported addresses?",
+      question: "Will Driver007 save my imported addresses?",
       answer:
-        "Yes, as soon as you will add addresses on the Upper Route Planner, the software will automatically save them for your future use.",
+        "Yes, as soon as you will add addresses on the Driver007 Route Planner, the software will automatically save them for your future use.",
     },
   ];
 
