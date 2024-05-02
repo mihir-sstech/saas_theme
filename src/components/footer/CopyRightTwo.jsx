@@ -6,7 +6,7 @@ const CopyRightTwo = () => {
       <div className="d-flex align-items-center justify-content-center">
         <p>
           {" "}
-          Copyright @{new Date().getFullYear()}{" "}
+          Copyright dsadd @{new Date().getFullYear()}{" "}
           <a
             href="https://themeforest.net/user/ib-themes/portfolio"
             target="_blank"

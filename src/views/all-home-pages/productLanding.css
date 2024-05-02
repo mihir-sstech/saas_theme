@@ -1,0 +1,84 @@
+.faq {
+  width: 93%;
+  padding: 0px;
+  margin-left: 72px;
+}
+.accordion-button {
+  /* position: relative;
+  display: flex;
+  width: 100%;
+  font-size: 1rem;
+  color: var(--bs-accordion-btn-color);
+  text-align: left;
+  height: 48px; */
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 22px 70px 22px 0;
+  font-family: "Rubik", sans-serif;
+  font-size: 30px;
+  line-height: 1.4em;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  color: var(--bs-accordion-btn-color);
+  text-decoration: none;
+  position: relative;
+}
+.main-dev-img {
+  position: relative;
+  margin-top: 78px;
+}
+@media only screen and (max-width: 1024px) {
+  button.accordion-button.collapsed,
+  button.accordion-button.opened {
+    position: relative;
+    right: 3%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  button.accordion-button.collapsed,
+  button.accordion-button.opened {
+    position: relative;
+    right: 7%;
+  }
+  .accordion-body{
+    position: relative;
+    right: 7%;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  button.accordion-button.collapsed,
+  button.accordion-button.opened {
+    position: relative;
+    right: 12%;
+  }
+  .accordion-body{
+    position: relative;
+    right: 12%;
+  }
+}
+@media only screen and (max-width: 320px) {
+  button.accordion-button.collapsed,
+  button.accordion-button.opened {
+    position: relative;
+    right: 20%;
+  }
+  .accordion-body{
+    position: relative;
+    right: 20%;
+  }
+}
+@media only screen and (min-width: 321px) and (max-width: 430px) {
+  button.accordion-button.collapsed,
+  button.accordion-button.opened {
+    position: relative;
+    right: 14%
+  }
+  .accordion-body{
+    position: relative;
+    right: 14%;
+  }
+}

@@ -6,83 +6,80 @@ import DocSlickAsNavTwo from "../../components/block-slider/DocSlickAsNavTwo";
 import FancyFeatureTwelve from "../../components/features/FancyFeatureTwelve";
 import Portfolio from "../../components/portfolio/Portfolio";
 import Testimonial from "../../components/testimonial/TestimonialFive";
+import FAQ from "../../components/testimonial/faq";
 import PricingFive from "../../components/pricing/PricingFive";
 import FooterSix from "../../components/footer/FooterSix";
 import Tilt from "react-parallax-tilt";
+import "./productLanding.css"
 
 const ProductLandingDark = () => {
+  const openImageInNewTab = (imgUrl) => {
+    const newTab = window.open();
+    if (newTab) {
+      newTab.location.href = imgUrl;
+    }
+  };
   return (
     <div className="main-page-wrapper font-gordita dark-style lg-container p0">
       <Helmet>
         <title>
-          Product Landing Dark || Deski-Saas & Software React Template
+          Product Landing Dark || Driver007-Saas & Software React Template
         </title>
       </Helmet>
       {/* End Page SEO Content */}
-
       <HeaderLandingDark />
       {/* End HeaderLanding */}
 
       {/*=============================================
 			Theme Hero Banner
 		  ==============================================  */}
-      <div className="hero-banner-six" id="home">
-        <div className="illustration-content">
-          <img
-            src="images/shape/144.svg"
-            alt="shape"
-            className="main-img ms-auto"
-          />
-          <img
-            src="images/assets/screen_05.png"
-            alt="screen"
-            className="screen-one"
-          />
-          <div className="screen-two">
-            <img
-              src="images/assets/screen_06.png"
-              alt="screen"
-              className="ms-auto"
-            />
-          </div>
-          <img
-            src="images/shape/145.svg"
-            alt="shape"
-            className="shapes shape-one"
-          />
-          <img
-            src="images/shape/146.svg"
-            alt="shape"
-            className="shapes shape-two"
-          />
-          <img
-            src="images/shape/147.svg"
-            alt="shape"
-            className="shapes shape-three"
-          />
-          <img
-            src="images/shape/148.svg"
-            alt="shape"
-            className="shapes shape-four"
-          />
-          <img
-            src="images/shape/149.svg"
-            alt="shape"
-            className="shapes shape-five"
-          />
-          <img
-            src="images/shape/150.png"
-            alt="shape"
-            className="shapes shape-six"
-          />
-        </div>
-        {/* End .illustration-content */}
+      <div class="main-dev-img sm:mt-1">
+  <div class="hero-banner-six w-full md:w-auto" id="home">
+    <div class="illustration-content flex flex-wrap justify-center sm:justify-start md:justify-start">
+      <img
+        src="images/assets/Delivery.gif"
+        alt="screen"
+        class="screen-one mt-11 sm:mt-0 flex"
+      />
+      <img
+        src="images/shape/145.svg"
+        alt="shape"
+        class="shapes shape-one flex"
+      />
+      <img
+        src="images/shape/146.svg"
+        alt="shape"
+        class="shapes shape-two flex"
+      />
+      <img
+        src="images/shape/147.svg"
+        alt="shape"
+        class="shapes shape-three flex"
+      />
+      <img
+        src="images/shape/148.svg"
+        alt="shape"
+        class="shapes shape-four flex"
+      />
+      <img
+        src="images/shape/149.svg"
+        alt="shape"
+        class="shapes shape-five flex"
+      />
+      <img
+        src="images/shape/150.png"
+        alt="shape"
+        class="shapes shape-six flex"
+      />
+    </div>
 
-        <div className="container">
-          <HeroBannerSix />
-        </div>
-        {/* End .container */}
-      </div>
+    <div class="container mx-auto flex sm:mr-56">
+      <HeroBannerSix />
+    </div>
+  </div>
+
+</div>
+
       {/* /.hero-banner-six */}
 
       {/*=============================================
@@ -201,8 +198,16 @@ const ProductLandingDark = () => {
           </div>
         </div>
       </div>
-      {/* /.fancy-feature-fourteen */}
-
+      <div className="main-page-wrapper font-gordita dark-style lg-container p0">
+      <div className="container">
+          <div className="title-style-six">
+            <h2>
+              <span>FAQ</span>
+            </h2>
+          </div>
+        </div>
+      <FAQ />
+    </div>
       {/*=====================================================
 				Fancy Portfolio One
 			===================================================== */}
@@ -339,8 +344,9 @@ const ProductLandingDark = () => {
                 </h2>
               </div>
               {/* /.title-style-six */}
-              <a
-                href="#"
+              <div
+                onClick={()=>{openImageInNewTab("https://apps.apple.com/in/app/driver007/id1470026880")}}
+                style={{cursor:"pointer"}}
                 className="d-flex align-items-center ios-button gr-bg-one hover-reverse-gr-bg-one"
               >
                 <img src="images/icon/apple.svg" alt="icon" className="icon" />
@@ -348,15 +354,26 @@ const ProductLandingDark = () => {
                   <span>Download on the</span>
                   <strong>App store</strong>
                 </div>
-              </a>
+              </div>
+              <div
+                onClick={()=>{openImageInNewTab("https://play.google.com/store/apps/details?id=com.sstech.driver007")}}
+                style={{cursor:"pointer"}}
+                className="d-flex align-items-center ios-button gr-bg-one hover-reverse-gr-bg-one"
+              >
+                <img src="images/icon/playstore.svg" alt="icon" className="icon" />
+                <div>
+                  <span>Download on the</span>
+                  <strong>Play store</strong>
+                </div>
+              </div>
+              </div>
             </div>
             {/* End .col */}
-          </div>
           {/* End .row */}
           <Tilt>
             <div className="screen-meta">
               <img
-                src="images/assets/screen_10.png"
+                src="images/assets/Banner-1157X339.png"
                 alt="screen"
                 className="m-auto"
               />
@@ -402,15 +419,15 @@ const ProductLandingDark = () => {
             <FooterSix />
             <p className="copyright">
               {" "}
-              Copyright @{new Date().getFullYear()}{" "}
+              Copyright @ 2011 to {new Date().getFullYear()}{" "}
               <a
-                href="https://themeforest.net/user/ib-themes/portfolio"
+                href="https://www.sstechsystem.com/"
                 target="_blank"
                 rel="noreferrer"
               >
-                ib-themes
+                SSTech System Solutions Pvt Ltd,
               </a>{" "}
-              inc.
+              India.
             </p>
           </div>
           <img

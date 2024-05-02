@@ -1,0 +1,27 @@
+/* faq.css */
+
+.accordion-button {
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.accordion-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.plus-icon {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.accordion-button[aria-expanded="true"] .plus-icon {
+  transform: rotate(45deg);
+  color: #27ae60; /* Green color for the expanded state */
+}
+
+.accordion-item {
+  transition: margin 0.3s ease;
+}
+
+.accordion-item:hover {
+  margin-bottom: 15px;
+}

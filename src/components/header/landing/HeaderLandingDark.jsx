@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import HeaderPopupForm from "../../form/HeaderPopupForm";
 import MegaMenuLanding from "../../header/mega-menu/MegaMenuLanding";
-
+import './HeaderLandindDarks.css'
 Modal.setAppElement("#root");
 
 const HeaderLandingDark = () => {
@@ -40,13 +40,11 @@ const HeaderLandingDark = () => {
         }
       >
         <div className="d-flex align-items-center justify-content-center">
-          <div className="logo">
-            <Link to="/">
-              <img src="images/logo/deski_06.svg" alt="brand" />
+          <div className="logo custom-logo">
+            <Link to="/ ">
+              <img src="images/logo/logodriver1.png" alt="brand" />
             </Link>
           </div>
-          {/* End logo */}
-
           <nav id="mega-menu-holder" className="navbar navbar-expand-lg">
             <div className="container nav-container">
               <div className="mob-header">
@@ -84,7 +82,7 @@ const HeaderLandingDark = () => {
                         href="#home"
                         data-toggle="dropdown"
                       >
-                        CMS pages
+                        Overview
                       </a>
                       {/* <div className="dropdown-menu">
                         <MegaMenuLanding />
@@ -97,18 +95,18 @@ const HeaderLandingDark = () => {
                     </li>
                     <li className="nav-item">
                       <a href="#features" className="nav-link">
-                      Blogs
+                        Blogs
                       </a>
                     </li>
                     <li className="nav-item">
                       <a href="#product" className="nav-link">
-                      Galary
+                        Galary
                       </a>
                     </li>
 
                     <li className="nav-item">
                       <a href="#feedback" className="nav-link">
-                      contact us
+                        contact us
                       </a>
                     </li>
                   </Scrollspy>
@@ -139,7 +137,7 @@ const HeaderLandingDark = () => {
         </div>
 
         <Scrollspy
-          className="navbar-nav  "
+          className="navbar-nav"
           items={[
             "home",
             "about",
@@ -221,7 +219,7 @@ const HeaderLandingDark = () => {
             {/* /.left-side */}
 
             <div className="right-side">
-              <h2 className="form-title">Contact us</h2>
+              <h2 className="form-title">Contact ussss</h2>
               <HeaderPopupForm />
             </div>
             {/*  /.right-side */}
