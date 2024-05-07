@@ -34,7 +34,7 @@ const FooterSix = () => {
       <div className="col-lg-4">
         <div className="logo">
           <a href="index.html">
-            <img src="images/logo/logodriver.png" alt="logo" />
+            <img src="images/logo/logodriver1.png" alt="logo" />
           </a>
         </div>
       </div>

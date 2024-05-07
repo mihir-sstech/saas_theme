@@ -85,11 +85,11 @@ export default function DocSlickAsNavTwo() {
           </div>
         </Slider>
         {/* Top Image slide */}
-        <img
+        {/* <img
           src="images/shape/152.svg"
           alt="shape"
           className="shapes shape-one"
-        />
+        /> */}
         <img
           src="images/shape/153.png"
           alt="shape"

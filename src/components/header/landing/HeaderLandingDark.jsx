@@ -122,9 +122,9 @@ const HeaderLandingDark = () => {
 
       {/* Mobile Menu Start */}
       <div className={click ? "mobile-menu  menu-open" : "mobile-menu"}>
-        <div className="logo order-md-1">
+        <div className="logo order-md-1 h-2">
           <Link to="/">
-            <img src="images/logo/deski_06.svg" alt="brand" />
+            <img src="images/logo/logodriver1.png" alt="brand" />
           </Link>
           <div className="fix-icon text-dark" onClick={handleClick}>
             <img src="images/icon/close.svg" alt="icon" />
@@ -215,7 +215,7 @@ const HeaderLandingDark = () => {
             {/* /.left-side */}
 
             <div className="right-side">
-              <h2 className="form-title">Contact ussss</h2>
+              <h2 className="form-title">Contact us</h2>
               <HeaderPopupForm />
             </div>
             {/*  /.right-side */}
