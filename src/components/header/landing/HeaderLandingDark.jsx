@@ -3,7 +3,6 @@ import Scrollspy from "react-scrollspy";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import HeaderPopupForm from "../../form/HeaderPopupForm";
-import MegaMenuLanding from "../../header/mega-menu/MegaMenuLanding";
 import './HeaderLandindDarks.css'
 Modal.setAppElement("#root");
 
@@ -84,9 +83,6 @@ const HeaderLandingDark = () => {
                       >
                         Overview
                       </a>
-                      {/* <div className="dropdown-menu">
-                        <MegaMenuLanding />
-                      </div> */}
                     </li>
                     <li className="nav-item">
                       <a href="#about" className="nav-link">
