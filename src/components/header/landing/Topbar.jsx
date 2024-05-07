@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Scrollspy from "react-scrollspy";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
-import { Button, Form, Modal as TrackingModal } from 'react-bootstrap'
 import HeaderPopupForm from "../../form/HeaderPopupForm";
 import './HeaderLandindDarks.css'
+import TrackingModal from "../../tracking/TrackingModal";
 Modal.setAppElement("#root");
 
 const Topbar = () => {
@@ -236,40 +236,7 @@ const Topbar = () => {
       {/* End  Modal For Request a demo */}
 
       {/* Tracking Modal */}
-      {/* <Modal
-        isOpen={isTrackingModalOpen}
-        onRequestClose={toggleTrackingModal}
-        contentLabel="Tracking"
-        // className="custom-modal modal-contact-popup-one dark-style"
-        overlayClassName="custom-overlay"
-        closeTimeoutMS={500}
-      >
-        <section style={{display: "flex", flexDirection: "column", gap: "10px", alignItems: "center", justifyContent: "center"}}>
-          <article className="text-sky-400">Tracking</article>
-          <input type="text" placeholder="Enter tracking code / consignment number" style={{padding: "5px 30px", borderRadius: "20px", width: "70%"}} />
-          <button style={{}}>Track My Job</button>
-        </section>
-      </Modal> */}
-
-      <TrackingModal show={isTrackingModalOpen} onHide={toggleTrackingModal} centered> 
-        <TrackingModal.Body style={{padding: "50px"}}>
-          <section>X</section>
-          <section style={{color: "#4eacec", fontSize: "30px", fontWeight: "bold", textAlign: "center"}}>Tracking</section> 
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control type="text" placeholder="Enter Tracking Code / Consignment No." />
-            </Form.Group>
-            <section style={{display: "flex", justifyContent: "center", marginTop: "5px"}}>
-              <Button variant="primary" onClick={toggleTrackingModal}>Save Changes</Button>
-            </section>
-          </Form>
-        </TrackingModal.Body>
-        <TrackingModal.Footer>
-          <Button variant="secondary" onClick={toggleTrackingModal}>
-            Close
-          </Button>
-        </TrackingModal.Footer>
-      </TrackingModal>
+      <TrackingModal isTrackingModalOpen={isTrackingModalOpen} toggleTrackingModal={toggleTrackingModal} />
 
 {/* End Tracking Modal */}
     </>

@@ -33,47 +33,47 @@ const HomePage = () => {
       {/*=============================================
 			Theme Hero Banner
 		  ==============================================  */}
-      <div class="main-dev-img sm:mt-1">
-  <div class="hero-banner-six w-full md:w-auto" id="home">
-    <div class="illustration-content flex flex-wrap justify-center sm:justify-start md:justify-start">
+      <div className="main-dev-img sm:mt-1">
+  <div className="hero-banner-six w-full md:w-auto" id="home">
+    <div className="illustration-content flex flex-wrap justify-center sm:justify-start md:justify-start">
       <img
         src="images/assets/Delivery.gif"
         alt="screen"
-        class="screen-one mt-11 sm:mt-0 flex"
+        className="screen-one mt-11 sm:mt-0 flex"
       />
       <img
         src="images/shape/145.svg"
         alt="shape"
-        class="shapes shape-one flex"
+        className="shapes shape-one flex"
       />
       <img
         src="images/shape/146.svg"
         alt="shape"
-        class="shapes shape-two flex"
+        className="shapes shape-two flex"
       />
       <img
         src="images/shape/147.svg"
         alt="shape"
-        class="shapes shape-three flex"
+        className="shapes shape-three flex"
       />
       <img
         src="images/shape/148.svg"
         alt="shape"
-        class="shapes shape-four flex"
+        className="shapes shape-four flex"
       />
       <img
         src="images/shape/149.svg"
         alt="shape"
-        class="shapes shape-five flex"
+        className="shapes shape-five flex"
       />
       <img
         src="images/shape/150.png"
         alt="shape"
-        class="shapes shape-six flex"
+        className="shapes shape-six flex"
       />
     </div>
 
-    <div class="container mx-auto flex sm:mr-56">
+    <div className="container mx-auto flex sm:mr-56">
       <HeroBannerSix />
     </div>
   </div>
