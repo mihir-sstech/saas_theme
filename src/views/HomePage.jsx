@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import HeaderLandingDark from "../components/header/landing/HeaderLandingDark";
+import Topbar from "../components/header/landing/Topbar";
 import HeroBannerSix from "../components/hero-banner/HeroBannerSix";
 import DocSlickAsNavTwo from "../components/block-slider/DocSlickAsNavTwo";
 import FancyFeatureTwelve from "../components/features/FancyFeatureTwelve";
@@ -27,7 +27,7 @@ const HomePage = () => {
         </title>
       </Helmet>
       {/* End Page SEO Content */}
-      <HeaderLandingDark />
+      <Topbar />
       {/* End HeaderLanding */}
 
       {/*=============================================
