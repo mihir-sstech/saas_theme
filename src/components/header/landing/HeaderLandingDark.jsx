@@ -122,7 +122,7 @@ const HeaderLandingDark = () => {
 
       {/* Mobile Menu Start */}
       <div className={click ? "mobile-menu  menu-open" : "mobile-menu"}>
-        <div className="logo order-md-1 h-2">
+        <div className="logo order-md-1">
           <Link to="/">
             <img src="images/logo/logodriver1.png" alt="brand" />
           </Link>
