@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import HeaderPopupForm from "../../form/HeaderPopupForm";
 import './HeaderLandindDarks.css'
+import TrackingModal from "../../tracking/TrackingModal";
 Modal.setAppElement("#root");
 
-const HeaderLandingDark = () => {
+const Topbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isTrackingModalOpen, setIsTrackingModalOpen] = useState(false);
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   const [navbar, setNavbar] = useState(false);
@@ -15,6 +17,10 @@ const HeaderLandingDark = () => {
   function toggleModalOne() {
     setIsOpen(!isOpen);
   }
+
+  const toggleTrackingModal = () => {
+    setIsTrackingModalOpen(!isTrackingModalOpen);
+  };
 
   const changeBackground = () => {
     if (window.scrollY >= 90) {
@@ -75,7 +81,7 @@ const HeaderLandingDark = () => {
                     currentClassName="active"
                     offset={-90}
                   >
-                    <li className="nav-item dropdown position-static">
+                    <li className="nav-item !text-white dropdown position-static">
                       <a
                         className="nav-link"
                         href="#home"
@@ -110,6 +116,10 @@ const HeaderLandingDark = () => {
               </div>
             </div>
           </nav>
+          {/* Tracking Button */}
+          <div className="tracking-container">
+            <button className="tracking-button" onClick={toggleTrackingModal}>Tracking</button>
+          </div>
           <div className="right-widget">
             <button className="demo-button" onClick={toggleModalOne}>
               <span>Request A Demo</span>
@@ -224,8 +234,13 @@ const HeaderLandingDark = () => {
         </div>
       </Modal>
       {/* End  Modal For Request a demo */}
+
+      {/* Tracking Modal */}
+      <TrackingModal isTrackingModalOpen={isTrackingModalOpen} toggleTrackingModal={toggleTrackingModal} />
+
+{/* End Tracking Modal */}
     </>
   );
 };
 
-export default HeaderLandingDark;
+export default Topbar;
