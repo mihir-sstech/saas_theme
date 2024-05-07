@@ -1,18 +1,18 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import HeaderLandingDark from "../../components/header/landing/HeaderLandingDark";
-import HeroBannerSix from "../../components/hero-banner/HeroBannerSix";
-import DocSlickAsNavTwo from "../../components/block-slider/DocSlickAsNavTwo";
-import FancyFeatureTwelve from "../../components/features/FancyFeatureTwelve";
-import Portfolio from "../../components/portfolio/Portfolio";
-import Testimonial from "../../components/testimonial/TestimonialFive";
-import FAQ from "../../components/testimonial/faq";
-import PricingFive from "../../components/pricing/PricingFive";
-import FooterSix from "../../components/footer/FooterSix";
+import HeaderLandingDark from "../components/header/landing/HeaderLandingDark";
+import HeroBannerSix from "../components/hero-banner/HeroBannerSix";
+import DocSlickAsNavTwo from "../components/block-slider/DocSlickAsNavTwo";
+import FancyFeatureTwelve from "../components/features/FancyFeatureTwelve";
+import Portfolio from "../components/portfolio/Portfolio";
+import Testimonial from "../components/testimonial/TestimonialFive";
+import FAQ from "../components/testimonial/faq";
+import PricingFive from "../components/pricing/PricingFive";
+import FooterSix from "../components/footer/FooterSix";
 import Tilt from "react-parallax-tilt";
-import "./productLanding.css"
+import "./homePage.css"
 
-const ProductLandingDark = () => {
+const HomePage = () => {
   const openImageInNewTab = (imgUrl) => {
     const newTab = window.open();
     if (newTab) {
@@ -443,4 +443,4 @@ const ProductLandingDark = () => {
   );
 };
 
-export default ProductLandingDark;
+export default HomePage;
