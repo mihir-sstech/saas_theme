@@ -3,3 +3,19 @@
   width: 150px;
   /* height: auto; */
 }
+
+.mobile-logo img {
+  display: none;
+}
+
+@media (max-width: 575px) {
+  .custom-logo {
+    display: none;
+  }
+ .mobile-logo img {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 0 20px;
+} 
+}

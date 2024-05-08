@@ -32,7 +32,7 @@ const FooterSix = () => {
   return (
     <div className="row justify-content-center align-items-center">
       <div className="col-lg-4">
-        <div className="logo">
+        <div className="logo1">
           <a href="index.html">
             <img src="images/logo/logodriver1.png" alt="logo" />
           </a>

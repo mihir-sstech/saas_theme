@@ -276,13 +276,17 @@
   }
 }
 .fix-icon {
-  font-size: 26px;
-  color: #fff;
+  // font-size: 26px;
+  color: #fff !important;
   position: absolute;
   right: 17px;
   top: 17px;
   cursor: pointer;
-  transform: scale(1.35);
+  // transform: scale(1.35);
+  background-color: #403f3f;
+  padding: 5px 15px;
+  
+  border-radius: 9999px;
 }
 
 // one page landing
