@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Form, Modal, Spinner, Toast } from 'react-bootstrap'
+import { Form, Modal, Toast } from 'react-bootstrap'
 import './TrackingModal.css'
-import { makeApiCall } from '../../Api/api';
+import { driverDetails, makeApiCall } from '../../Api/api';
+import CustomSpinner from '../spinner/CustomSpinner';
 
 const TrackingModal = ({isTrackingModalOpen, toggleTrackingModal }) => {
     const [initFormData, setInitFormData] = useState({
@@ -49,8 +50,9 @@ const TrackingModal = ({isTrackingModalOpen, toggleTrackingModal }) => {
                 url: `${process.env.REACT_APP_API_URL}job-tracking-code`,
                 data: trackingData,
             })
-            if(res.status === 200) {
-                alert("success");
+            if(res.status === driverDetails.SUCCESS_CODE) {
+                window.open(`${driverDetails.DRIVER_FRONT_URL}tracking?${res.data.data.code}`, '_blank', 'noopener,noreferrer');
+                toggleTrackingModal();
             } else {
                 setToastMsg(res.response.data.message || "Invalid Code")
             }
@@ -77,9 +79,7 @@ const TrackingModal = ({isTrackingModalOpen, toggleTrackingModal }) => {
                         {isLoading ? (
                             <>
                             Track My Job 
-                            <Spinner animation="border" role="status" size='sm' style={{marginLeft: "10px"}}>
-                                <span className="visually-hidden">Loading...</span>
-                            </Spinner>
+                            <CustomSpinner customStyle={{marginLeft: "10px"}} customSize='sm' />
                             </>
                         ) : (
                             <>Track Job</>

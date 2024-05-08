@@ -3,11 +3,12 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./assets/main.scss";
+import { driverDetails } from "./Api/api"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <BrowserRouter basename="/driver007_frontend">
+  <BrowserRouter basename={driverDetails.DRIVER_FRONT_URL}>
     <App />
   </BrowserRouter>
 );
