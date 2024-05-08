@@ -65,7 +65,7 @@ const TrackingModal = ({isTrackingModalOpen, toggleTrackingModal }) => {
     };  
 
   return (
-    <Modal show={isTrackingModalOpen} onHide={toggleTrackingModal} centered> 
+    <Modal show={isTrackingModalOpen} onHide={toggleTrackingModal} centered className='tracking-modal-parent'> 
         <Modal.Body style={{position: "relative"}} className='tracking-modal'>
           <Modal.Header closeButton className='modal-header'></Modal.Header>
           <article className='modal-container'>
@@ -82,7 +82,7 @@ const TrackingModal = ({isTrackingModalOpen, toggleTrackingModal }) => {
                             </Spinner>
                             </>
                         ) : (
-                            <>Track My Job</>
+                            <>Track Job</>
                         )}
                     </button>
                 </section>

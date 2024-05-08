@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import HeaderPopupForm from "../../form/HeaderPopupForm";
 import './HeaderLandindDarks.css'
 import TrackingModal from "../../tracking/TrackingModal";
+import BirdEyeIcon from "../../../assets/images/icon/Bird-eye-view.svg";
 Modal.setAppElement("#root");
 
 const Topbar = () => {
@@ -48,6 +49,11 @@ const Topbar = () => {
           <div className="logo custom-logo">
             <Link to="/ ">
               <img src="images/logo/logodriver1.png" alt="brand" />
+            </Link>
+          </div>
+          <div className="mobile-logo">
+            <Link to="/ ">
+              <img src="images/logo/driverLogo.png" alt="brand" />
             </Link>
           </div>
           <nav id="mega-menu-holder" className="navbar navbar-expand-lg">
@@ -118,7 +124,10 @@ const Topbar = () => {
           </nav>
           {/* Tracking Button */}
           <div className="tracking-container">
-            <button className="tracking-button" onClick={toggleTrackingModal}>Tracking</button>
+            <button className="tracking-button" onClick={toggleTrackingModal}>
+              <span>Tracking</span>
+              <img src={BirdEyeIcon} alt="icon" />
+            </button>
           </div>
           <div className="right-widget">
             <button className="demo-button" onClick={toggleModalOne}>
@@ -137,7 +146,8 @@ const Topbar = () => {
             <img src="images/logo/logodriver1.png" alt="brand" />
           </Link>
           <div className="fix-icon text-dark" onClick={handleClick}>
-            <img src="images/icon/close.svg" alt="icon" />
+            {/* <img src="images/icon/close.svg" alt="icon" /> */}
+            X
           </div>
           {/* Mobile Menu close icon */}
         </div>

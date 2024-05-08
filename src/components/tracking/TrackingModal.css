@@ -26,8 +26,11 @@
     gap: 25px;
 }
 .modal-container .tracking-form .tracking-input {
-     border-radius: 20px;
-     font-size: 16px;
+    border-radius: 20px;
+    font-size: 16px;
+}
+.modal-container .tracking-form .form-control:focus {
+    border-color: white !important;
 } 
 .modal-container .tracking-form .tracking-search-button {
     background-color: #4eacec;
@@ -49,4 +52,22 @@
 .tracking-modal .toast-msg {
     color: white;
     padding: 5px 20px;
+}
+
+@media only screen and (max-width: 575px) {
+  .tracking-modal-parent {
+    width: 90% !important;
+    /* margin: 0 25px; */
+    margin-left: 5%;
+  }
+  .modal-container {
+    padding: 10px;
+  }
+  .modal-container .tracking-form .tracking-header {
+    font-size: 20px; 
+  }
+  .modal-container .tracking-form .tracking-search-button {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
 }
