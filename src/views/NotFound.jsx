@@ -6,12 +6,12 @@ const NotFound = () => {
   return (
     <div className="main-page-wrapper p0">
       <Helmet>
-        <title>Not Found || Deski-Saas & Software React Template</title>
+        <title>Not Found || Driver 007 Front Website</title>
       </Helmet>
       {/* End Page SEO Content */}
 
-      <div className="error-page d-lg-flex align-items-center">
-        <div className="img-holder order-lg-last">
+      <div className="error-page d-flex align-items-center">
+        <div className="img-holder order-last">
           <img
             src="images/media/404.svg"
             alt="media"
@@ -23,10 +23,10 @@ const NotFound = () => {
             className="shapes qus"
           />
         </div>
-        <div className="text-wrapper order-lg-first">
-          <div className="logo">
+        <div className="text-wrapper order-first">
+          <div style={{width: "150px"}}>
             <Link to="/">
-              <img src="images/logo/deski_05.svg" alt="logo" />
+              <img src="images/logo/logodriver.png" alt="logo" />
             </Link>
           </div>
           <h1 className="font-slab">
@@ -34,10 +34,10 @@ const NotFound = () => {
             The Page Can’t <br />
             be Found.
           </h1>
-          <p className="font-rubik">
+          {/* <p className="font-rubik">
             quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
             commodo consequat
-          </p>
+          </p> */}
 
           <Link
             to="/"
