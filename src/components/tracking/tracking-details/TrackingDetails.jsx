@@ -6,7 +6,7 @@ import CustomLoader from '../../spinner/CustomLoader';
 const TrackingDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [trackingData, setTrackingData] = useState(null);
-  const params = useLocation()
+  const params = useLocation();
   const navigate = useNavigate();
 
   const getTrackingDetails = async (trackingCode) => {
@@ -24,7 +24,8 @@ const TrackingDetails = () => {
   useEffect(() => {
     const verifyTrackingCode = async () => {
       const urlStr = params.search;
-      const queryStr = urlStr.includes('?') ? urlStr.slice(1) : urlStr;
+      const index = urlStr.includes("?") ? urlStr.lastIndexOf("=") : 0;
+      const queryStr = index > 0 ? urlStr.slice(index + 1) : urlStr;
       const trackingData = {
         tracking_code: queryStr
       }

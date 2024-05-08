@@ -3,6 +3,7 @@ import { Form, Modal, Toast } from 'react-bootstrap'
 import './TrackingModal.css'
 import { driverDetails, makeApiCall } from '../../Api/api';
 import CustomSpinner from '../spinner/CustomSpinner';
+import { useNavigate } from 'react-router-dom';
 
 const TrackingModal = ({isTrackingModalOpen, toggleTrackingModal }) => {
     const [initFormData, setInitFormData] = useState({
@@ -11,6 +12,7 @@ const TrackingModal = ({isTrackingModalOpen, toggleTrackingModal }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [toastMsg, setToastMsg] = useState('');
     const inputRef = useRef();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if(isTrackingModalOpen) {
@@ -51,7 +53,8 @@ const TrackingModal = ({isTrackingModalOpen, toggleTrackingModal }) => {
                 data: trackingData,
             })
             if(res.status === driverDetails.SUCCESS_CODE) {
-                window.open(`${driverDetails.DRIVER_FRONT_URL}tracking?${res.data.data.code}`, '_blank', 'noopener,noreferrer');
+                navigate(`tracking/?code=${res.data.data.code}`);
+                // window.open(`${driverDetails.DRIVER_FRONT_URL}tracking?${res.data.data.code}`, '_blank', 'noopener,noreferrer');
                 toggleTrackingModal();
             } else {
                 setToastMsg(res.response.data.message || "Invalid Code")

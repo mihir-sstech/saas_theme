@@ -16,7 +16,7 @@ const AllRoutes = () => {
         <Route path="/" element={<HomePage />} />
 
         {/* NotFound Route */}
-        <Route path="/tracking" element={
+        <Route path="/tracking/" element={
           <Suspense fallback={<CustomSpinner />}>
             <TrackingDetails />
           </Suspense>
