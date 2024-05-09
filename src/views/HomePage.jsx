@@ -23,7 +23,7 @@ const HomePage = () => {
     <div className="main-page-wrapper font-gordita dark-style lg-container p0">
       <Helmet>
         <title>
-          Product Landing Dark || Driver007-Saas & Software React Template
+          Driver007- On Demand Deliver Parcel App
         </title>
       </Helmet>
       {/* End Page SEO Content */}
