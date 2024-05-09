@@ -18,7 +18,7 @@ const App = () => {
   return (
     <>
       <Helmet>
-        <title>Deski - Saas & Software React Template</title>
+        <title>Driver007- On Demand Deliver Parcel App</title>
         <meta property="og:site_name" content="deski" />
         <meta
           property="og:url"
