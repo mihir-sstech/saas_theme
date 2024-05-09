@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { driverDetails, makeApiCall } from '../../../Api/api';
 import CustomLoader from '../../spinner/CustomLoader';
+import './TrackingDetails.css';
+import TrackingHeader from './tracking-header/TrackingHeader';
 
 const TrackingDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +60,12 @@ const TrackingDetails = () => {
   if(isLoading) return <CustomLoader />
 
   return (
-    <div>TrackingDetails</div>
+    <section className='tracking-details-container'>
+      {/* Header */}
+      <TrackingHeader />
+      {/* Section */}
+      <div className='tracking-details-section'></div>
+    </section>
   )
 }
 
