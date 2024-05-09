@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { driverDetails, makeApiCall } from '../../../Api/api';
+import { driverDetails, makeApiCall, useGoogleMapLoader } from '../../../Api/api';
 import CustomLoader from '../../spinner/CustomLoader';
 import './TrackingDetails.css';
 import TrackingHeader from './tracking-header/TrackingHeader';
+import TrackingMapCompo from './tracking-map/TrackingMapCompo';
+import TrackingDataSection from './tracking-data/TrackingDataSection';
 
 const TrackingDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [trackingData, setTrackingData] = useState(null);
-  const params = useLocation();
+  const [searchText, setSearchText] = useState("");
+  const [toastMsg, setToastMsg] = useState("");
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const { isLoaded } = useGoogleMapLoader();
 
   const getTrackingDetails = async (trackingCode) => {
     try {
@@ -20,12 +26,13 @@ const TrackingDetails = () => {
       return res;
     } catch (error) {
       console.log("Error--", error);
+      return error;
     }
   };
 
   useEffect(() => {
     const verifyTrackingCode = async () => {
-      const urlStr = params.search;
+      const urlStr = location.search;
       const index = urlStr.includes("?") ? urlStr.lastIndexOf("=") : 0;
       const queryStr = index > 0 ? urlStr.slice(index + 1) : urlStr;
       const trackingData = {
@@ -57,14 +64,44 @@ const TrackingDetails = () => {
     verifyTrackingCode();
   }, []);
 
-  if(isLoading) return <CustomLoader />
+  useEffect(() => {
+      if(toastMsg) {
+        setTimeout(() => {
+          setToastMsg("");
+        }, 5000)
+      }
+    }, [toastMsg])
+
+  const handleTrackingSearch = async () => {
+    if(searchText) {
+      setIsLoading(true);
+      const res = await getTrackingDetails(searchText);
+      if(res.status === driverDetails.SUCCESS_CODE) {
+        setTrackingData(res.data.data);
+        const newSearchParams = new URLSearchParams(location.search);
+        newSearchParams.set('code', res.data.data.tracking_code || res.data.data.consignment_no);
+        navigate(`${location.pathname}?${newSearchParams.toString()}`);
+      } else {
+        setToastMsg(res?.response?.data?.message || "Something went wrong");
+      }
+      setIsLoading(false);
+      setSearchText("");
+    }
+  };
+
+  if(isLoading || !isLoaded) return <CustomLoader />
 
   return (
     <section className='tracking-details-container'>
       {/* Header */}
-      <TrackingHeader />
+      <TrackingHeader handleTrackingSearch={handleTrackingSearch} searchText={searchText} setSearchText={setSearchText} toastMsg={toastMsg} setToastMsg={setToastMsg} />
       {/* Section */}
-      <div className='tracking-details-section'></div>
+      <div className='tracking-details-section'>
+        {/* Google Map Section */}
+        <TrackingMapCompo />
+        {/* Tracking Details Section */}
+        <TrackingDataSection />
+      </div>
     </section>
   )
 }
