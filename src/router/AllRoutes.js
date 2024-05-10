@@ -5,6 +5,7 @@ import ScrollTopBehaviour from "../components/ScrollTopBehaviour";
 // All HOME PAGE ROUTES
 import HomePage from "../views/HomePage";
 import CustomSpinner from "../components/spinner/CustomSpinner";
+import { ToastContainer } from "react-toastify";
 const NotFound = lazy(() => import("../views/NotFound"));
 const TrackingDetails = lazy(() => import("../components/tracking/tracking-details/TrackingDetails"));
 
@@ -12,6 +13,19 @@ const AllRoutes = () => {
   return (
     <>
       <ScrollTopBehaviour />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ color: "white" }}
+      />
       <Routes>
         <Route path="/" element={<HomePage />} />
 

@@ -58,25 +58,6 @@
 .tracking-details-container .tracking-details-header-container .tracking-details-header .tracking-search-details .tracking-search-btn:hover {
     background: linear-gradient(319.09deg, #f2a530 15.78%, #ed5879 48.89%, #b439ff 81.59%);
 }
-.toast-compo {
-    text-align: center;
-    margin: 0 auto;
-    background-color: red;
-    color: white;
-}
-.toast-body {
-    padding: 7px 0;
-    position: relative;
-}
-.toast-body .toast-cancel-icon {
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    border-radius: 9999px;
-    padding: 0 8px;
-    cursor: pointer;
-}
-
 
 /* Media Queries  */
 @media (max-width: 767px) {
@@ -96,27 +77,6 @@
         right: 10px;
         font-size: 14px;
     }
-    .toast-compo {
-        position: absolute;
-        top: 5px;
-        right: 10px;
-        z-index: 20;
-        width: 200px;
-    }
-    .toast-body {
-        padding: 0px;
-        text-align: left;
-        margin-left: 20px;
-    }
-    .toast-body .toast-cancel-icon {
-        position: absolute;
-        right: 1px;
-        top: 0;
-        border-radius: 9999px;
-        padding: 0 8px;
-        cursor: pointer;
-        font-size: 12px;
-    }
 }
 @media (max-width: 500px) {
     .tracking-details-container .tracking-details-header-container {
@@ -126,13 +86,6 @@
         flex-direction: column;
         align-items: start;
         gap: 3px;
-    }
-    .toast-body {
-        font-size: 12px;
-    }
-    .toast-body .toast-cancel-icon {
-        font-size: 11px;
-        top: 1px;
     }
     .tracking-details-container .tracking-details-header-container .tracking-details-header .tracking-search-details {
         width: 100%;

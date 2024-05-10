@@ -6,12 +6,12 @@ import './TrackingDetails.css';
 import TrackingHeader from './tracking-header/TrackingHeader';
 import TrackingMapCompo from './tracking-map/TrackingMapCompo';
 import TrackingDataSection from './tracking-data/TrackingDataSection';
+import { toast } from 'react-toastify';
 
 const TrackingDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [trackingData, setTrackingData] = useState(null);
   const [searchText, setSearchText] = useState("");
-  const [toastMsg, setToastMsg] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -45,15 +45,15 @@ const TrackingDetails = () => {
           data: trackingData,
         })
         if(res.status !== driverDetails.SUCCESS_CODE) {
-          alert(res.response.data.message || "Invalid Code");
           navigate("/");
+          toast.error(res.response.data.message || "Invalid Code"); 
         } else {
           setIsLoading(true);
           const trackingRes = await getTrackingDetails(queryStr);
           if(trackingRes.status === driverDetails.SUCCESS_CODE) {
             setTrackingData(trackingRes.data.data);
           } else {
-            alert(trackingRes?.response?.data?.message || "Something went wrong")
+            toast.error(trackingRes?.response?.data?.message || "Something went wrong")
           }
           setIsLoading(false);
         }
@@ -63,14 +63,6 @@ const TrackingDetails = () => {
     }
     verifyTrackingCode();
   }, []);
-
-  useEffect(() => {
-      if(toastMsg) {
-        setTimeout(() => {
-          setToastMsg("");
-        }, 5000)
-      }
-    }, [toastMsg])
 
   const handleTrackingSearch = async () => {
     if(searchText) {
@@ -82,7 +74,7 @@ const TrackingDetails = () => {
         newSearchParams.set('code', res.data.data.tracking_code || res.data.data.consignment_no);
         navigate(`${location.pathname}?${newSearchParams.toString()}`);
       } else {
-        setToastMsg(res?.response?.data?.message || "Something went wrong");
+        toast.error(res?.response?.data?.message || "Something went wrong");
       }
       setIsLoading(false);
       setSearchText("");
@@ -94,7 +86,7 @@ const TrackingDetails = () => {
   return (
     <section className='tracking-details-container'>
       {/* Header */}
-      <TrackingHeader handleTrackingSearch={handleTrackingSearch} searchText={searchText} setSearchText={setSearchText} toastMsg={toastMsg} setToastMsg={setToastMsg} />
+      <TrackingHeader handleTrackingSearch={handleTrackingSearch} searchText={searchText} setSearchText={setSearchText} />
       {/* Section */}
       <div className='tracking-details-section'>
         {/* Google Map Section */}
