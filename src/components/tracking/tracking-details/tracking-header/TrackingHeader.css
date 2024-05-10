@@ -3,6 +3,7 @@
     padding: 20px 50px;
     box-shadow: 10px 2px 10px 0px rgba(69,52,52,0.33);
     position: relative;
+    z-index: 100;
 }
 .tracking-details-container .tracking-details-header-container .tracking-details-header {
     display: flex;

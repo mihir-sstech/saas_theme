@@ -100,7 +100,7 @@ const TrackingDetails = () => {
         {/* Google Map Section */}
         <TrackingMapCompo />
         {/* Tracking Details Section */}
-        <TrackingDataSection />
+        <TrackingDataSection trackingData={trackingData} />
       </div>
     </section>
   )
