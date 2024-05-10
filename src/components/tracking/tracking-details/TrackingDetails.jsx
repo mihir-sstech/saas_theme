@@ -71,7 +71,7 @@ const TrackingDetails = () => {
       if(res.status === driverDetails.SUCCESS_CODE) {
         setTrackingData(res.data.data);
         const newSearchParams = new URLSearchParams(location.search);
-        newSearchParams.set('code', res.data.data.tracking_code || res.data.data.consignment_no);
+        newSearchParams.set('code', res.data.data.tracking_details.tracking_code || res.data.data.tracking_details.consignment_no);
         navigate(`${location.pathname}?${newSearchParams.toString()}`);
       } else {
         toast.error(res?.response?.data?.message || "Something went wrong");

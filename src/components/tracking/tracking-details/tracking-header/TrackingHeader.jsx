@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import driverLogo from "../../../../assets/images/logodriver.png"
 import './TrackingHeader.css'
+import { X } from 'react-bootstrap-icons'
 
 const TrackingHeader = ({handleTrackingSearch, searchText, setSearchText}) => {
 
@@ -17,7 +18,7 @@ const TrackingHeader = ({handleTrackingSearch, searchText, setSearchText}) => {
                 <div className='tracking-details-input'>
                     <input type='text' placeholder='Tracking Code / Consignment No / Order No' onChange={(e) => setSearchText(e.target.value)} value={searchText} />
                     {searchText.length > 0 && (
-                        <p className='cancel-icon' onClick={() => setSearchText("")}>x</p>
+                        <p className='cancel-icon' onClick={() => setSearchText("")}><X width={20} height={20}/></p>
                     )}
                 </div>
                 {searchText.length > 0 && (

@@ -61,6 +61,19 @@
     padding: 0 20px;
 }
 
+/* Delivered At */
+
+.tracking-details-container .tracking-details-section .tracking-data-section .delivered-details {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.tracking-details-container .tracking-details-section .tracking-data-section .delivered-details footer {
+    font-weight: 600;
+}
+
 /* Dropoff Address */
 
 .tracking-details-container .tracking-details-section .tracking-data-section .dropoff-details {

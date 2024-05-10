@@ -6,6 +6,7 @@ import HeaderPopupForm from "../../form/HeaderPopupForm";
 import './Topbar.css'
 import TrackingModal from "../../tracking/TrackingModal";
 import BirdEyeIcon from "../../../assets/images/icon/Bird-eye-view.svg";
+import { X } from "react-bootstrap-icons";
 Modal.setAppElement("#root");
 
 const Topbar = () => {
@@ -147,7 +148,7 @@ const Topbar = () => {
           </Link>
           <div className="fix-icon text-dark" onClick={handleClick}>
             {/* <img src="images/icon/close.svg" alt="icon" /> */}
-            X
+            <X width={30} height={30} />
           </div>
           {/* Mobile Menu close icon */}
         </div>

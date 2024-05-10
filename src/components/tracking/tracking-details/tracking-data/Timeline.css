@@ -11,9 +11,14 @@
   left: 25.7%;
   width: 2px;
   background: #ccc;
-  height: 100%;
+  height: 150px;
   top: 0;
 }
+
+.timeline:last-child::before {
+  height: 0px;
+}
+
 
 .timeline-item {
   display: flex;
@@ -54,7 +59,7 @@
 .timeline-card {
   background: #fff;
   border-radius: 8px;
-  padding: 10px;
+  padding: 5px 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   position: relative;
   width: 200px;

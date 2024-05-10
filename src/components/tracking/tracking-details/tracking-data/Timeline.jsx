@@ -14,8 +14,8 @@ const TimelineItem = ({ time, date, icon, gradient, children }) => {
   );
 };
 
-const Timeline = ({ children }) => {
-  return <div className="timeline">{children}</div>;
+const Timeline = ({ children, customClass }) => {
+  return <div className={`timeline ${customClass}`}>{children}</div>;
 };
 
 export { Timeline, TimelineItem };
