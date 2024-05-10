@@ -49,7 +49,6 @@ const JobSummaryData = ({trackingData}) => {
 };
 
 const TrackingDataSection = ({trackingData}) => {
-  console.log("data--", trackingData);
 
   return (
     <section className='tracking-data-section'>
