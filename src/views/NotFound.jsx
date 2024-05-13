@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import notFound from "../assets/images/icon/53.svg"
+import driverlogo from "../assets/images/logo/logodriver.png"
+import notFound404 from "../assets/images/media/404.svg"
+import questionmaekicon from "../assets/images/media/404-q.svg"
+
 
 const NotFound = () => {
   return (
@@ -14,12 +18,12 @@ const NotFound = () => {
       <div className="error-page d-flex align-items-center">
         <div className="img-holder order-last">
           <img
-            src="images/media/404.svg"
+            src={notFound404}
             alt="media"
             className="w-100 illustration"
           />
           <img
-            src="images/media/404-q.svg"
+            src={questionmaekicon}
             alt="media"
             className="shapes qus"
           />
@@ -27,7 +31,7 @@ const NotFound = () => {
         <div className="text-wrapper order-first">
           <div style={{width: "150px"}}>
             <Link to="/">
-              <img src="images/logo/logodriver.png" alt="logo" />
+              <img src={driverlogo} alt="logo" />
             </Link>
           </div>
           <h1 className="font-slab">

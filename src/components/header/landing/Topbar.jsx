@@ -10,6 +10,8 @@ import { X } from "react-bootstrap-icons";
 import conatctIamge from "../../../assets/images/ils_19.svg"
 import close from "../../../assets/images/icon/close.svg"
 import user from "../../../assets/images/icon/user.svg"
+import driverlogo1 from "../../../assets/images/logo/logodriver1.png"
+import driverlogo from "../../../assets/images/logo/driverLogo.png"
 
 Modal.setAppElement("#root");
 
@@ -53,12 +55,12 @@ const Topbar = () => {
         <div className="d-flex align-items-center justify-content-center">
           <div className="logo custom-logo">
             <Link to="/ ">
-              <img src="images/logo/logodriver1.png" alt="brand" />
+              <img src={driverlogo1} alt="brand" />
             </Link>
           </div>
           <div className="mobile-logo">
             <Link to="/ ">
-              <img src="images/logo/driverLogo.png" alt="brand" />
+              <img src={driverlogo} alt="brand" />
             </Link>
           </div>
           <nav id="mega-menu-holder" className="navbar navbar-expand-lg">
@@ -148,7 +150,7 @@ const Topbar = () => {
       <div className={click ? "mobile-menu  menu-open" : "mobile-menu"}>
         <div className="logo order-md-1">
           <Link to="/">
-            <img src="images/logo/logodriver1.png" alt="brand" />
+            <img src={driverlogo1} alt="brand" />
           </Link>
           <div className="fix-icon text-dark" onClick={handleClick}>
             {/* <img src="images/icon/close.svg" alt="icon" /> */}

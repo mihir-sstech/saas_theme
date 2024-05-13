@@ -1,4 +1,5 @@
 import React from "react";
+import driverlogo1 from "../../assets/images/logo/logodriver1.png"
 
 const socialContent = [
   {
@@ -34,7 +35,7 @@ const FooterSix = () => {
       <div className="col-lg-4">
         <div className="logo1">
           <a href="index.html">
-            <img src="images/logo/logodriver1.png" alt="logo" />
+            <img src={driverlogo1} alt="logo" />
           </a>
         </div>
       </div>

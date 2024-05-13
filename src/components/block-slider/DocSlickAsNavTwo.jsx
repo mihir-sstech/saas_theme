@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
 import createTask from "../../assets/images/icon/81.svg"
+import banner3 from "../../assets/images/assets/Banner-1160X700.png"
+import shape152 from "../../assets/images/shape/152.svg"
+import shape153 from "../../assets/images/shape/153.png"
 
 export default function DocSlickAsNavTwo() {
   const [nav1, setNav1] = useState();
@@ -76,23 +79,23 @@ export default function DocSlickAsNavTwo() {
           ref={(slider1) => setNav1(slider1)}
         >
           <div className="carousel-item">
-            <img src="images/assets/Banner-1160X700.png" alt="feature" />
+            <img src={banner3} alt="feature" />
           </div>
           <div className="carousel-item">
-            <img src="images/assets/Banner-1160X700.png" alt="feature" />
+            <img  src={banner3} alt="feature" />
           </div>
           <div className="carousel-item">
-            <img src="images/assets/Banner-1160X700.png" alt="feature" />
+            <img  src={banner3} alt="feature" /> 
           </div>
         </Slider>
         {/* Top Image slide */}
         {/* <img
-          src="images/shape/152.svg"
+          src={shape152}
           alt="shape"
           className="shapes shape-one"
         /> */}
         <img
-          src="images/shape/153.png"
+          src={shape153}
           alt="shape"
           className="shapes shape-two"
         />

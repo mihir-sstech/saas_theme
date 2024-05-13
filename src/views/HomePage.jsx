@@ -18,6 +18,26 @@ import quick from "../assets/images/logo/logo-17.svg"
 import google from "../assets/images/logo/logo-18.svg"
 import twitter from "../assets/images/logo/logo-19.svg"
 import bing from "../assets/images/logo/logo-19.svg"
+import shape145 from "../assets/images/shape/145.svg"
+import shape146 from "../assets/images/shape/146.svg"
+import shape147 from "../assets/images/shape/147.svg"
+import shape148 from "../assets/images/shape/148.svg"
+import shape149 from "../assets/images/shape/149.svg"
+import shape150 from "../assets/images/shape/150.png"
+import shape151 from "../assets/images/shape/151.svg"
+import shape154 from "../assets/images/shape/154.svg"
+import shape155 from "../assets/images/shape/155.svg"
+import shape156 from "../assets/images/shape/156.svg"
+import shape157 from "../assets/images/shape/157.svg"
+import shape158 from "../assets/images/shape/158.svg"
+import shape160 from "../assets/images/shape/160.png"
+import shape162 from "../assets/images/shape/162.svg"
+import shape163 from "../assets/images/shape/163.svg"
+import shape164 from "../assets/images/shape/164.svg"
+import shape165 from "../assets/images/shape/165.svg"
+import shape166 from "../assets/images/shape/166.png"
+import shape167 from "../assets/images/shape/167.png"
+import banner2 from "../assets/images/assets/Banner-1157X339.png"
 
 import "./homePage.css"
 
@@ -51,32 +71,32 @@ const HomePage = () => {
         className="screen-one mt-11 sm:mt-0 flex"
       />
       <img
-        src="images/shape/145.svg"
+        src={shape145}
         alt="shape"
         className="shapes shape-one flex"
       />
       <img
-        src="images/shape/146.svg"
+        src={shape146}
         alt="shape"
         className="shapes shape-two flex"
       />
       <img
-        src="images/shape/147.svg"
+        src={shape147}
         alt="shape"
         className="shapes shape-three flex"
       />
       <img
-        src="images/shape/148.svg"
+        src={shape148}
         alt="shape"
         className="shapes shape-four flex"
       />
       <img
-        src="images/shape/149.svg"
+        src={shape149}
         alt="shape"
         className="shapes shape-five flex"
       />
       <img
-        src="images/shape/150.png"
+        src={shape150}
         alt="shape"
         className="shapes shape-six flex"
       />
@@ -112,7 +132,7 @@ const HomePage = () => {
           </div>
         </div>
         {/* /.bg-wrapper */}
-        <img src="images/shape/151.svg" alt="" className="shapes shape-one" />
+        <img src={shape151} alt="" className="shapes shape-one" />
       </div>
       {/*  /.fancy-feature-twelve */}
 
@@ -192,7 +212,7 @@ const HomePage = () => {
                       <div className="logo-meta lg d-flex align-items-center justify-content-center ">
                         <img src={bing} alt="logo" />
                         <img
-                          src="images/shape/154.svg"
+                          src={shape154}
                           alt="shape"
                           className="shapes shape-one"
                         />
@@ -269,17 +289,17 @@ const HomePage = () => {
                 </div>
                 {/* /.clientSliderThree */}
                 <img
-                  src="images/shape/156.svg"
+                  src={shape156}
                   alt="shape"
                   className="shapes shape-one"
                 />
                 <img
-                  src="images/shape/157.svg"
+                  src={shape157}
                   alt="shape"
                   className="shapes shape-two"
                 />
                 <img
-                  src="images/shape/158.svg"
+                  src={shape158}
                   alt="shape"
                   className="shapes shape-three"
                 />
@@ -288,7 +308,7 @@ const HomePage = () => {
           </div>
           {/* /.container */}
           <div className="circle-area">
-            <img src="images/shape/155.svg" alt="shape" className="main-img" />
+            <img src={shape155} alt="shape" className="main-img" />
           </div>
         </div>
       </div>
@@ -325,7 +345,7 @@ const HomePage = () => {
                   className="shapes shape-one"
                 />
                 <img
-                  src="images/shape/160.png"
+                  src={shape160}
                   alt="shape"
                   className="shapes shape-two"
                 />
@@ -382,17 +402,17 @@ const HomePage = () => {
           <Tilt>
             <div className="screen-meta">
               <img
-                src="images/assets/Banner-1157X339.png"
+                src={banner2}
                 alt="screen"
                 className="m-auto"
               />
               <img
-                src="images/shape/165.svg"
+                src={shape165}
                 alt="screen"
                 className="shapes shape-four"
               />
               <img
-                src="images/shape/166.png"
+                src={shape166}
                 alt="screen"
                 className="shapes shape-five"
               />
@@ -402,17 +422,17 @@ const HomePage = () => {
         {/* /.container */}
 
         <img
-          src="images/shape/162.svg"
+          src={shape162}
           alt="shape"
           className="shapes shape-one"
         />
         <img
-          src="images/shape/163.svg"
+          src={shape163}
           alt="shape"
           className="shapes shape-two"
         />
         <img
-          src="images/shape/164.svg"
+          src={shape164}
           alt="shape"
           className="shapes shape-three"
         />
@@ -440,7 +460,7 @@ const HomePage = () => {
             </p>
           </div>
           <img
-            src="images/shape/167.png"
+            src={shape167}
             alt="shape"
             className="shapes shape-one"
           />

@@ -213,7 +213,7 @@ const TrackingDataSection = ({trackingData}) => {
               </section>
             
               {/* Timeline - Job Summary */}
-              {/* <JobSummaryData trackingData={trackingData} /> */}
+            <JobSummaryData trackingData={trackingData} /> 
             </section>
           </article>
         )}
