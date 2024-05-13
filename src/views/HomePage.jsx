@@ -10,6 +10,15 @@ import FAQ from "../components/testimonial/faq";
 import PricingFive from "../components/pricing/PricingFive";
 import FooterSix from "../components/footer/FooterSix";
 import Tilt from "react-parallax-tilt";
+import delivery from "../assets/images/assets/Delivery.gif"
+import check from  "../assets/images/icon/84.svg"
+import apple from "../assets/images/icon/apple.svg"
+import playstore from "../assets/images/icon/playstore.svg"
+import quick from "../assets/images/logo/logo-17.svg"
+import google from "../assets/images/logo/logo-18.svg"
+import twitter from "../assets/images/logo/logo-19.svg"
+import bing from "../assets/images/logo/logo-19.svg"
+
 import "./homePage.css"
 
 const HomePage = () => {
@@ -37,7 +46,7 @@ const HomePage = () => {
   <div className="hero-banner-six w-full md:w-auto" id="home">
     <div className="illustration-content flex flex-wrap justify-center sm:justify-start md:justify-start">
       <img
-        src="images/assets/Delivery.gif"
+        src={delivery}
         alt="screen"
         className="screen-one mt-11 sm:mt-0 flex"
       />
@@ -162,12 +171,12 @@ const HomePage = () => {
                   <div className="col-md-6">
                     <Tilt>
                       <div className="logo-meta lg d-flex align-items-center justify-content-center ">
-                        <img src="images/logo/logo-17.svg" alt="logo" />
+                        <img src={quick} alt="logo" />
                       </div>
                     </Tilt>
                     <Tilt>
                       <div className="logo-meta d-flex align-items-center justify-content-center ">
-                        <img src="images/logo/logo-18.svg" alt="logo" />
+                        <img src={google} alt="logo" />
                       </div>
                     </Tilt>
                   </div>
@@ -176,12 +185,12 @@ const HomePage = () => {
                   <div className="col-md-6">
                     <Tilt>
                       <div className="logo-meta mt-40 d-flex align-items-center justify-content-center ">
-                        <img src="images/logo/logo-19.svg" alt="logo" />
+                        <img src={twitter} alt="logo" />
                       </div>
                     </Tilt>
                     <Tilt>
                       <div className="logo-meta lg d-flex align-items-center justify-content-center ">
-                        <img src="images/logo/logo-20.svg" alt="logo" />
+                        <img src={bing} alt="logo" />
                         <img
                           src="images/shape/154.svg"
                           alt="shape"
@@ -239,7 +248,7 @@ const HomePage = () => {
             <div className="row">
               <div className="col-xl-7 col-lg-10 col-md-9 m-auto">
                 <img
-                  src="images/icon/84.svg"
+                  src={check}
                   alt="icon"
                   className="icon m-auto"
                 />
@@ -349,7 +358,7 @@ const HomePage = () => {
                 style={{cursor:"pointer"}}
                 className="d-flex align-items-center ios-button gr-bg-one hover-reverse-gr-bg-one"
               >
-                <img src="images/icon/apple.svg" alt="icon" className="icon" />
+                <img src={apple} alt="icon" className="icon" />
                 <div>
                   <span>Download on the</span>
                   <strong>App store</strong>
@@ -360,7 +369,7 @@ const HomePage = () => {
                 style={{cursor:"pointer"}}
                 className="d-flex align-items-center ios-button gr-bg-one hover-reverse-gr-bg-one"
               >
-                <img src="images/icon/playstore.svg" alt="icon" className="icon" />
+                <img src={playstore} alt="icon" className="icon" />
                 <div>
                   <span>Download on the</span>
                   <strong>Play store</strong>
