@@ -218,8 +218,7 @@ const TrackingDataSection = ({trackingData, isMobileScreen}) => {
         {isVisible && isMobileScreen && (
           <div>
             <button className="scroll-top " onClick={scrollToTop}>
-              <img src="images/icon/chevron-w.png" alt="icon" />
-            <ArrowUpCircle width={20} height={20}/>
+              <ArrowUpCircle width={20} height={20}/>
             </button>
           </div>
         )}
