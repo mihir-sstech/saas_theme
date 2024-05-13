@@ -4,8 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import ScrollTopBehaviour from "../components/ScrollTopBehaviour";
 // All HOME PAGE ROUTES
 import HomePage from "../views/HomePage";
-import CustomSpinner from "../components/spinner/CustomSpinner";
 import { ToastContainer } from "react-toastify";
+import CustomLoader from "../components/spinner/CustomLoader";
 const NotFound = lazy(() => import("../views/NotFound"));
 const TrackingDetails = lazy(() => import("../components/tracking/tracking-details/TrackingDetails"));
 
@@ -31,7 +31,7 @@ const AllRoutes = () => {
 
         {/* NotFound Route */}
         <Route path="/tracking/" element={
-          <Suspense fallback={<CustomSpinner />}>
+          <Suspense fallback={<CustomLoader />}>
             <TrackingDetails />
           </Suspense>
         } />

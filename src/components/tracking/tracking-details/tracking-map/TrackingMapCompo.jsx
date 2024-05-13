@@ -87,7 +87,7 @@ const TrackingMapCompo = ({trackingData, isLoaded}) => {
   return isLoaded && currentPosition !== null && (
     <section className='tracking-map-container'>
       <GoogleMap
-        mapContainerStyle={{ width: "100%", height: "40em" }}
+        mapContainerStyle={{ width: "calc(100% - 400px)", height: "40em" }}
         center={currentPosition}
         zoom={11}
         onLoad={(map) => setMap(map)}
@@ -97,8 +97,10 @@ const TrackingMapCompo = ({trackingData, isLoaded}) => {
           zoomControl: false,
           disableDoubleClickZoom: true,
           clickableIcons: false,
-          fullscreenControl: false,
-          
+          // fullscreenControl: false,
+          keyboardShortcuts: false,
+          scrollwheel: false,
+          gestureHandling: "none" // 'cooperative' / 'greedy'
         }}
         onClick={() => {
           setSelectedDropoff(null);
