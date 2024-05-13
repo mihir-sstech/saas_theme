@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ArrowUpCircle } from "react-bootstrap-icons";
 
 export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,7 +33,7 @@ export default function ScrollToTop() {
       {isVisible && (
         <div>
           <button className="scroll-top " onClick={scrollToTop}>
-            <img src="images/icon/chevron-w.png" alt="icon" />
+          <ArrowUpCircle width={20} height={20}/>
           </button>
         </div>
       )}
