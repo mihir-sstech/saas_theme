@@ -12,6 +12,7 @@ const TrackingDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [trackingData, setTrackingData] = useState(null);
   const [searchText, setSearchText] = useState("");
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -64,6 +65,25 @@ const TrackingDetails = () => {
     verifyTrackingCode();
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      // Adjust the height based on the screen width
+      if (window.innerWidth < 768) {
+        setIsMobileScreen(true);
+      } else {
+        setIsMobileScreen(false);
+      }
+    };
+    // Initial setup
+    handleResize();
+    // Event listener for window resize
+    window.addEventListener("resize", handleResize);
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const handleTrackingSearch = async () => {
     if(searchText) {
       setIsLoading(true);
@@ -91,9 +111,9 @@ const TrackingDetails = () => {
       {trackingData !== null && Object.keys(trackingData).length > 0 && (
         <div className='tracking-details-section'>
           {/* Google Map Section */}
-          <TrackingMapCompo trackingData={trackingData} isLoaded={isLoaded} />
+          <TrackingMapCompo trackingData={trackingData} isLoaded={isLoaded} isMobileScreen={isMobileScreen} />
           {/* Tracking Details Section */}
-          <TrackingDataSection trackingData={trackingData} />
+          <TrackingDataSection trackingData={trackingData} isMobileScreen={isMobileScreen} />
         </div>
       )}
     </section>
