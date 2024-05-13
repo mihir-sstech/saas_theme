@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import ModalVideo from "react-modal-video";
+import { openImageInNewTab } from "../../utils/helper";
 
 const HeroBannerSix = () => {
   const [isOpen, setOpen] = useState(false);
-  const openImageInNewTab = (imgUrl) => {
-    const newTab = window.open();
-   
-    if (newTab) {
-      newTab.location.href = imgUrl;
-    }
-  };
+
   return (
     <>
       <div className="row">

@@ -70,7 +70,7 @@
   padding: 0 10px;
   position: relative;
   width: 200px;
-  margin-left: 30px;
+  margin-left: 25px;
 }
 
 .image-card .parcel-images {
@@ -82,6 +82,14 @@
 .image-card .parcel-images img {
     width: 50px;
     height: 50px;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+.image-card .parcel-images img:hover {
+  scale: 1.02;
+  cursor: pointer;
 }
 
 .gradient-1 {

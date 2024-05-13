@@ -5,6 +5,7 @@ import { JOB_STATUS_JSON } from '../../../../Api/api';
 import { Check, GeoAlt, Rocket } from 'react-bootstrap-icons';
 import { Timeline, TimelineItem } from './Timeline';
 import dayjs from 'dayjs';
+import { openImageInNewTab } from '../../../../utils/helper';
 
 const JobSummaryData = ({trackingData}) => {
   if(trackingData !== null && trackingData?.job_details?.job_summary?.length > 0) {
@@ -29,7 +30,7 @@ const JobSummaryData = ({trackingData}) => {
               <TimelineItem gradient="gradient-3" time={dayjs(trackingData?.job_details?.job_summary[1].time).format('hh:mm a')} date={trackingData?.job_details?.job_summary[1].date} icon={<Check size={30} color='rgb(101, 163, 13)' style={{marginTop: "3px"}} />}>
                 <article className='parcel-images'>
                   {trackingData?.job_details?.job_summary[0]?.job_completion_summary?.parcel_images?.map((parcel, index) => (
-                    <img src={`${process.env.REACT_APP_PARCEL_IMG}/${parcel}`} alt={`Parcel-${index}`} key={index} />
+                    <img src={`${process.env.REACT_APP_PARCEL_IMG}/${parcel}`} alt={`Parcel-${index}`} key={index} onClick={() => openImageInNewTab(`${process.env.REACT_APP_PARCEL_IMG}/${parcel}`)} />
                   ))}
                 </article>
               </TimelineItem>
@@ -58,7 +59,13 @@ const TrackingDataSection = ({trackingData}) => {
           {trackingData?.job_details?.driver_details && Object.keys(trackingData.job_details.driver_details).length > 0 && (
             <section className='driver-details'>
               <article className='driver-image'>
-                <img src={trackingData?.job_details?.driver_details?.profile ? `${process.env.REACT_APP_USER_IMAGE_URL}/${trackingData.job_details.driver_details.profile}` : UserLogo} alt="Driver Logo" />
+                <img src={trackingData?.job_details?.driver_details?.profile ? `${process.env.REACT_APP_USER_IMAGE_URL}/${trackingData.job_details.driver_details.profile}` : UserLogo} alt="Driver Logo" onClick={() => {
+                  if(trackingData.job_details.driver_details.profile) {
+                    openImageInNewTab(`${process.env.REACT_APP_USER_IMAGE_URL}/${
+                        trackingData.job_details.driver_details.profile
+                      }`)
+                  }
+                }} />
               </article>
               <article className='driver-info'>
                 <header>Driver : </header>
