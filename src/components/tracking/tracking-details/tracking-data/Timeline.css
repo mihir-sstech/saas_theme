@@ -136,7 +136,7 @@
     background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
 } */
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .timeline-item {
     flex-direction: column;
   }
@@ -158,4 +158,4 @@
   .timeline-card::before {
     display: none;
   }
-}
+} */

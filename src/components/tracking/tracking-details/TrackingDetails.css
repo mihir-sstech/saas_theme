@@ -6,5 +6,12 @@
 
 .tracking-details-container .tracking-details-section {
     position: relative;
+    unicode-bidi: isolate;
 }
 
+@media screen and (max-width: 767px) {
+    .tracking-details-container {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }        
+}

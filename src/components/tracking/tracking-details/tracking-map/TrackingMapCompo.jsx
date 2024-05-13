@@ -15,6 +15,7 @@ const TrackingMapCompo = ({trackingData, isLoaded}) => {
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [selectedPickup, setSelectedPickup] = useState(null);
   const [selectedDropoff, setSelectedDropoff] = useState(null);
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
 
   useEffect(() => {
     if(trackingData?.job_details?.pickup_details?.pickup_latitude && trackingData?.job_details?.pickup_details?.pickup_longitude) {
@@ -84,10 +85,29 @@ const TrackingMapCompo = ({trackingData, isLoaded}) => {
     }
   }, [map, currentPosition]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      // Adjust the height based on the screen width
+      if (window.innerWidth < 768) {
+        setIsMobileScreen(true);
+      } else {
+        setIsMobileScreen(false);
+      }
+    };
+    // Initial setup
+    handleResize();
+    // Event listener for window resize
+    window.addEventListener("resize", handleResize);
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return isLoaded && currentPosition !== null && (
     <section className='tracking-map-container'>
       <GoogleMap
-        mapContainerStyle={{ width: "calc(100% - 400px)", height: "40em" }}
+        mapContainerStyle={{ width: isMobileScreen ? '100%' : 'calc(100% - 400px)', height: isMobileScreen ? '20em' : '40em', outline: "none" }}
         center={currentPosition}
         zoom={11}
         onLoad={(map) => setMap(map)}
@@ -97,10 +117,10 @@ const TrackingMapCompo = ({trackingData, isLoaded}) => {
           zoomControl: false,
           disableDoubleClickZoom: true,
           clickableIcons: false,
-          // fullscreenControl: false,
+          fullscreenControl: isMobileScreen ? false : true,
           keyboardShortcuts: false,
           scrollwheel: false,
-          gestureHandling: "none" // 'cooperative' / 'greedy'
+          gestureHandling: isMobileScreen ? 'greedy' : 'none',
         }}
         onClick={() => {
           setSelectedDropoff(null);
