@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './TrackingDataSection.css'
 import UserLogo from "../../../../assets/images/user.png"
 import { JOB_STATUS_JSON } from '../../../../Api/api';
-import { Check, GeoAlt, Rocket } from 'react-bootstrap-icons';
+import { ArrowUpCircle, Check, GeoAlt, Rocket } from 'react-bootstrap-icons';
 import { Timeline, TimelineItem } from './Timeline';
 import dayjs from 'dayjs';
 import { openImageInNewTab } from '../../../../utils/helper';
 
 const JobSummaryData = ({trackingData}) => {
+
   if(trackingData !== null && trackingData?.job_details?.job_summary?.length > 0) {
     const jobCompletionIndex = trackingData?.job_details?.job_summary?.findIndex(job => job.job_completion_summary)
     if(jobCompletionIndex === -1) {
@@ -50,6 +51,35 @@ const JobSummaryData = ({trackingData}) => {
 };
 
 const TrackingDataSection = ({trackingData}) => {
+  // const [isVisible, setIsVisible] = useState(false);
+
+  // const scrollToTop = () => {
+  //   const trackingDataSection = document.querySelector('.tracking-data-section');
+  //   if (trackingDataSection) {
+  //     trackingDataSection.scrollTo({
+  //       top: 0,
+  //       behavior: 'smooth',
+  //     });
+  //   }
+  // };
+  
+  // useEffect(() => {
+  //   const toggleVisibility = () => {
+  //     const trackingDataSection = document.querySelector('.tracking-data-section');
+  //     if (trackingDataSection.scrollTop > 50) {
+  //       setIsVisible(true);
+  //     } else {
+  //       setIsVisible(false);
+  //     }
+  //   };
+    
+  
+  //   const trackingDataSection = document.querySelector('.tracking-data-section');
+  //   trackingDataSection.addEventListener("scroll", toggleVisibility);
+  
+  //   return () => trackingDataSection.removeEventListener("scroll", toggleVisibility);
+  // }, []);
+  
 
   return (
     <>

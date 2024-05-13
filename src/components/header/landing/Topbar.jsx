@@ -7,6 +7,10 @@ import './Topbar.css'
 import TrackingModal from "../../tracking/TrackingModal";
 import BirdEyeIcon from "../../../assets/images/icon/Bird-eye-view.svg";
 import { X } from "react-bootstrap-icons";
+import conatctIamge from "../../../assets/images/ils_19.svg"
+import close from "../../../assets/images/icon/close.svg"
+import user from "../../../assets/images/icon/user.svg"
+
 Modal.setAppElement("#root");
 
 const Topbar = () => {
@@ -133,7 +137,7 @@ const Topbar = () => {
           <div className="right-widget">
             <button className="demo-button" onClick={toggleModalOne}>
               <span>Request A Demo</span>
-              <img src="images/icon/user.svg" alt="icon" />
+              <img src={user} alt="icon" />
             </button>
           </div>
         </div>
@@ -212,7 +216,7 @@ const Topbar = () => {
         <div className="box_inner ">
           <main className="main-body box_inner modal-content clearfix">
             <button className="close" onClick={toggleModalOne}>
-              <img src="images/icon/close.svg" alt="close" />
+              <img src={close} alt="close" />
             </button>
             {/* End close icon */}
 
@@ -227,7 +231,7 @@ const Topbar = () => {
                   </div>
                 </div>
                 <img
-                  src="images/assets/ils_19.svg"
+                  src={conatctIamge}
                   alt=""
                   className="illustration mt-auto"
                 />

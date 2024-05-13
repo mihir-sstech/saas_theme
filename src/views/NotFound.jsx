@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import notFound from "../assets/images/icon/53.svg"
 
 const NotFound = () => {
   return (
@@ -44,7 +45,7 @@ const NotFound = () => {
             className="back-home font-rubik d-flex align-items-center justify-content-center"
           >
             <span>Back to Home</span>
-            <img src="images/icon/53.svg" alt="icon" />
+            <img src={notFound} alt="icon" />
           </Link>
         </div>
         {/* /.text-wrapper */}

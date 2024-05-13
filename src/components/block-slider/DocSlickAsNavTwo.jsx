@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
+import createTask from "../../assets/images/icon/81.svg"
 
 export default function DocSlickAsNavTwo() {
   const [nav1, setNav1] = useState();
@@ -35,7 +36,7 @@ export default function DocSlickAsNavTwo() {
       >
         <div className="d-flex item_content">
           <div className="icon d-flex align-items-center justify-content-center">
-            <img src="images/icon/81.svg" alt="icon" />
+            <img src={createTask} alt="icon" />
           </div>
           <p>
             Create task for any <br />
@@ -45,7 +46,7 @@ export default function DocSlickAsNavTwo() {
         {/* /.d-flex */}
         <div className="d-flex item_content">
           <div className="icon d-flex align-items-center justify-content-center">
-            <img src="images/icon/81.svg" alt="icon" />
+            <img src={createTask} alt="icon" />
           </div>
           <p>
             Make timeframe for <br />
@@ -55,7 +56,7 @@ export default function DocSlickAsNavTwo() {
         {/* /.d-flex */}
         <div className="d-flex item_content">
           <div className="icon d-flex align-items-center justify-content-center">
-            <img src="images/icon/81.svg" alt="icon" />
+            <img src={createTask} alt="icon" />
           </div>
           <p>
             Get task complated by <br />

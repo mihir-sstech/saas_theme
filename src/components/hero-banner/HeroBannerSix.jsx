@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import ModalVideo from "react-modal-video";
 import { openImageInNewTab } from "../../utils/helper";
+import apple from "../../assets/images/icon/apple.svg"
+import playCircle from "../../assets/images/icon/play-circle.svg"
+import playStore from "../../assets/images/icon/playstore.svg"
 
 const HeroBannerSix = () => {
   const [isOpen, setOpen] = useState(false);
@@ -33,7 +36,7 @@ const HeroBannerSix = () => {
               data-aos-delay="150"
             >
               <img
-                src="images/icon/play-circle.svg"
+                src={playCircle}
                 alt="icon"
                 className="icon"
               />
@@ -48,7 +51,7 @@ const HeroBannerSix = () => {
               data-aos-duration="1200"
               data-aos-delay="200"
             >
-              <img src="images/icon/apple.svg" alt="icon" className="icon" />
+              <img src={apple} alt="icon" className="icon" />
               <div>
                 <span>Download on the</span>
                 <strong>App store</strong>
@@ -62,7 +65,7 @@ const HeroBannerSix = () => {
               data-aos-duration="1200"
               data-aos-delay="200"
               >
-                <img src="images/icon/playstore.svg" alt="icon" className="icon" />
+                <img src={playStore} alt="icon" className="icon" />
                 <div>
                   <span>Download on the</span>
                   <strong>Play store</strong>
