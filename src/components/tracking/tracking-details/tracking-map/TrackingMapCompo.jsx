@@ -6,7 +6,7 @@ import PICKUP_ICON from "../../../../assets/images/map-images/Pickup.png";
 import DROPOFF_ICON from "../../../../assets/images/map-images/Dropoff.png";
 import { openImageInNewTab } from '../../../../utils/helper';
 
-const TrackingMapCompo = ({trackingData, isLoaded}) => {
+const TrackingMapCompo = ({trackingData, isLoaded, isMobileScreen}) => {
   const [currentPosition, setCurrentPosition] = useState(null);
   const [pickupLocation, setPickupLocation] = useState(null);
   const [dropoffLocation, setDropoffLocation] = useState(null);
@@ -15,7 +15,6 @@ const TrackingMapCompo = ({trackingData, isLoaded}) => {
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [selectedPickup, setSelectedPickup] = useState(null);
   const [selectedDropoff, setSelectedDropoff] = useState(null);
-  const [isMobileScreen, setIsMobileScreen] = useState(false);
 
   useEffect(() => {
     if(trackingData?.job_details?.pickup_details?.pickup_latitude && trackingData?.job_details?.pickup_details?.pickup_longitude) {
@@ -84,25 +83,6 @@ const TrackingMapCompo = ({trackingData, isLoaded}) => {
       }
     }
   }, [map, currentPosition]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      // Adjust the height based on the screen width
-      if (window.innerWidth < 768) {
-        setIsMobileScreen(true);
-      } else {
-        setIsMobileScreen(false);
-      }
-    };
-    // Initial setup
-    handleResize();
-    // Event listener for window resize
-    window.addEventListener("resize", handleResize);
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   return isLoaded && currentPosition !== null && (
     <section className='tracking-map-container'>

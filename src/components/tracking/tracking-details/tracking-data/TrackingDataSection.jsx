@@ -50,35 +50,33 @@ const JobSummaryData = ({trackingData}) => {
   }
 };
 
-const TrackingDataSection = ({trackingData}) => {
-  // const [isVisible, setIsVisible] = useState(false);
+const TrackingDataSection = ({trackingData, isMobileScreen}) => {
+  const [isVisible, setIsVisible] = useState(false);
 
-  // const scrollToTop = () => {
-  //   const trackingDataSection = document.querySelector('.tracking-data-section');
-  //   if (trackingDataSection) {
-  //     trackingDataSection.scrollTo({
-  //       top: 0,
-  //       behavior: 'smooth',
-  //     });
-  //   }
-  // };
+  const scrollToTop = () => {
+    const trackingDataSection = document.querySelector('.tracking-details-container');
+    if (trackingDataSection) {
+      trackingDataSection.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  };
   
-  // useEffect(() => {
-  //   const toggleVisibility = () => {
-  //     const trackingDataSection = document.querySelector('.tracking-data-section');
-  //     if (trackingDataSection.scrollTop > 50) {
-  //       setIsVisible(true);
-  //     } else {
-  //       setIsVisible(false);
-  //     }
-  //   };
-    
+  useEffect(() => {
+    const toggleVisibility = () => {
+      const trackingDataSection = document.querySelector('.tracking-details-container');
+      if (trackingDataSection.scrollTop > 0) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+    const trackingDataSection = document.querySelector('.tracking-details-container');
+    trackingDataSection.addEventListener("scroll", toggleVisibility);
   
-  //   const trackingDataSection = document.querySelector('.tracking-data-section');
-  //   trackingDataSection.addEventListener("scroll", toggleVisibility);
-  
-  //   return () => trackingDataSection.removeEventListener("scroll", toggleVisibility);
-  // }, []);
+    return () => trackingDataSection.removeEventListener("scroll", toggleVisibility);
+  }, []);
   
 
   return (
@@ -213,9 +211,17 @@ const TrackingDataSection = ({trackingData}) => {
               </section>
             
               {/* Timeline - Job Summary */}
-              {/* <JobSummaryData trackingData={trackingData} /> */}
+              <JobSummaryData trackingData={trackingData} />
             </section>
           </article>
+        )}
+        {isVisible && isMobileScreen && (
+          <div>
+            <button className="scroll-top " onClick={scrollToTop}>
+              <img src="images/icon/chevron-w.png" alt="icon" />
+            <ArrowUpCircle width={20} height={20}/>
+            </button>
+          </div>
         )}
       </section>
     </>
