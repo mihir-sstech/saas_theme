@@ -88,12 +88,14 @@ const TrackingDetails = () => {
       {/* Header */}
       <TrackingHeader handleTrackingSearch={handleTrackingSearch} searchText={searchText} setSearchText={setSearchText} />
       {/* Section */}
-      <div className='tracking-details-section'>
-        {/* Google Map Section */}
-        <TrackingMapCompo />
-        {/* Tracking Details Section */}
-        <TrackingDataSection trackingData={trackingData} />
-      </div>
+      {trackingData !== null && Object.keys(trackingData).length > 0 && (
+        <div className='tracking-details-section'>
+          {/* Google Map Section */}
+          <TrackingMapCompo trackingData={trackingData} isLoaded={isLoaded} />
+          {/* Tracking Details Section */}
+          <TrackingDataSection trackingData={trackingData} />
+        </div>
+      )}
     </section>
   )
 }
