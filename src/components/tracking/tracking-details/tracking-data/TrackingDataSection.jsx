@@ -66,7 +66,7 @@ const TrackingDataSection = ({trackingData, isMobileScreen}) => {
   useEffect(() => {
     const toggleVisibility = () => {
       const trackingDataSection = document.querySelector('.tracking-details-container');
-      if (trackingDataSection.scrollTop > 0) {
+      if (trackingDataSection.scrollTop > 100) {
         setIsVisible(true);
       } else {
         setIsVisible(false);

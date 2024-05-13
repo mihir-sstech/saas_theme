@@ -39,7 +39,7 @@
 }
 
 .timeline-time footer {
-    margin-top: -4px;
+  margin-top: -4px;
 }
 
 .timeline-icon {
@@ -136,26 +136,28 @@
     background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
 } */
 
-/* @media (max-width: 768px) {
+@media (max-width: 767px) {
   .timeline-item {
-    flex-direction: column;
-  }
-
-  .timeline-time {
-    text-align: center;
-    margin-bottom: 10px;
-  }
-
-  .timeline-icon {
-    left: 45%;
+    gap: 5px;
+    font-size: 12px;
   }
 
   .timeline-card {
-    margin-left: 0;
-    margin-top: 20px;
+    width: 100%;
+    align-self: center;
   }
 
-  .timeline-card::before {
+  .timeline-time {
+    margin-right: 0;
+  }
+
+  .timeline::before, .timeline-icon {
     display: none;
   }
-} */
+
+  .image-card .parcel-images img {
+    width: 40px;
+    height: 40px;
+    margin-top: 8px;
+  }
+}
