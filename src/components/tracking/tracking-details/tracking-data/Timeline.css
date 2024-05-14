@@ -16,7 +16,7 @@
 }
 
 .timeline:last-child::before {
-  height: 0px;
+  height: 50px;
 }
 
 
