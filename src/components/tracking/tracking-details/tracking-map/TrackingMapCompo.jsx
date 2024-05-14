@@ -42,39 +42,14 @@ const TrackingMapCompo = ({trackingData, isLoaded, isMobileScreen}) => {
   }, [trackingData]);
 
   useEffect(() => {
-    if (
-      isLoaded &&
-      map &&
-      // pathCoordinates.length > 0 &&
-      driverPosition !== null &&
-      driverPosition.lat &&
-      driverPosition.lng &&
-      pickupLocation !== null &&
-      dropoffLocation.length > 0
-    ) {
+    if (isLoaded && map && driverPosition && pickupLocation && dropoffLocation) {
       const bounds = new window.google.maps.LatLngBounds();
-      bounds.extend(
-        new window.google.maps.LatLng(
-          Number(driverPosition?.lat),
-          Number(driverPosition?.lng)
-        )
-      );
-      bounds.extend(
-        new window.google.maps.LatLng(pickupLocation?.lat, pickupLocation?.lng)
-      );
-      dropoffLocation.forEach((drop) => {
-        bounds.extend(new window.google.maps.LatLng(drop.lat, drop.lng));
-      });
+      bounds.extend(new window.google.maps.LatLng(driverPosition.lat, driverPosition.lng));
+      bounds.extend(new window.google.maps.LatLng(pickupLocation.lat, pickupLocation.lng));
+      bounds.extend(new window.google.maps.LatLng(dropoffLocation.lat, dropoffLocation.lng));
       map.fitBounds(bounds);
     }
-  }, [
-    isLoaded,
-    map,
-    driverPosition,
-    // pathCoordinates,
-    pickupLocation,
-    dropoffLocation,
-  ]);
+  }, [isLoaded, map, driverPosition, pickupLocation, dropoffLocation]);
 
   useEffect(() => {
     if (currentPosition !== null) {
@@ -87,9 +62,9 @@ const TrackingMapCompo = ({trackingData, isLoaded, isMobileScreen}) => {
   return isLoaded && currentPosition !== null && (
     <section className='tracking-map-container'>
       <GoogleMap
-        mapContainerStyle={{ width: isMobileScreen ? '100%' : 'calc(100% - 400px)', height: isMobileScreen ? '20em' : '40em', outline: "none" }}
+        mapContainerStyle={{ width: isMobileScreen ? '100%' : 'calc(100% - 400px)', height: isMobileScreen ? '20em' : '29em', outline: "none" }}
         center={currentPosition}
-        zoom={11}
+        zoom={12}
         onLoad={(map) => setMap(map)}
         options={{
           streetViewControl: false,
@@ -97,10 +72,10 @@ const TrackingMapCompo = ({trackingData, isLoaded, isMobileScreen}) => {
           zoomControl: false,
           disableDoubleClickZoom: true,
           clickableIcons: false,
-          fullscreenControl: isMobileScreen ? false : true,
+          fullscreenControl: false,
           keyboardShortcuts: false,
           scrollwheel: false,
-          gestureHandling: isMobileScreen ? 'greedy' : 'none',
+          // gestureHandling: isMobileScreen ? 'greedy' : 'none',
         }}
         onClick={() => {
           setSelectedDropoff(null);
