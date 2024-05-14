@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './TrackingDataSection.css'
 import UserLogo from "../../../../assets/images/user.png"
 import { JOB_STATUS_JSON } from '../../../../Api/api';
-import { ArrowUpCircle, Check, GeoAlt, Rocket } from 'react-bootstrap-icons';
+import { ArrowUpCircle, Check, GeoAlt } from 'react-bootstrap-icons';
 import { Timeline, TimelineItem } from './Timeline';
 import dayjs from 'dayjs';
 import { openImageInNewTab } from '../../../../utils/helper';
@@ -16,7 +16,7 @@ const JobSummaryData = ({trackingData}) => {
         <>
           {trackingData?.job_details?.job_summary?.map((job, index) => (
             <Timeline key={job.id}>
-                <TimelineItem time={dayjs(job.time).format('hh:mm a')} date={job.date} icon={<Rocket size={20} color='rgb(101, 163, 13)' />} gradient={`${index % 2 === 0 ? 'gradient-1' : 'gradient-2'}`}>
+                <TimelineItem time={dayjs(job.time).format('hh:mm a')} date={job.date} gradient={`${index % 2 === 0 ? 'gradient-1' : 'gradient-2'}`}>
                   <p>{job.msg}</p>
                 </TimelineItem>
             </Timeline>
@@ -28,7 +28,7 @@ const JobSummaryData = ({trackingData}) => {
         <>
           {trackingData?.job_details?.job_summary[0]?.job_completion_summary?.parcel_images?.length > 0 && (
             <Timeline>
-              <TimelineItem gradient="gradient-3" time={dayjs(trackingData?.job_details?.job_summary[1].time).format('hh:mm a')} date={trackingData?.job_details?.job_summary[1].date} icon={<Check size={30} color='rgb(101, 163, 13)' style={{marginTop: "3px"}} />}>
+              <TimelineItem gradient="gradient-3" time={dayjs(trackingData?.job_details?.job_summary[1].time).format('hh:mm a')} date={trackingData?.job_details?.job_summary[1].date} icon={<Check size={20} color='rgb(79,174,239)' />}>
                 <article className='parcel-images'>
                   {trackingData?.job_details?.job_summary[0]?.job_completion_summary?.parcel_images?.map((parcel, index) => (
                     <img src={`${process.env.REACT_APP_PARCEL_IMG}/${parcel}`} alt={`Parcel-${index}`} key={index} onClick={() => openImageInNewTab(`${process.env.REACT_APP_PARCEL_IMG}/${parcel}`)} />
@@ -39,7 +39,7 @@ const JobSummaryData = ({trackingData}) => {
           )}
           {trackingData?.job_details?.job_summary?.slice(1).map((job, index) => (
             <Timeline key={job.id}>
-              <TimelineItem time={dayjs(job.time).format('hh:mm a')} date={job.date} icon={<Rocket size={20} color='rgb(101, 163, 13)' />} gradient={`${index % 2 === 0 ? 'gradient-1' : 'gradient-2'}`}>
+              <TimelineItem time={dayjs(job.time).format('hh:mm a')} date={job.date} gradient={`${index % 2 === 0 ? 'gradient-1' : 'gradient-2'}`}>
                 <p>{job.msg}</p>
               </TimelineItem>
             </Timeline>
