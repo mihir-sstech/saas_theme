@@ -50,11 +50,11 @@ const JobSummaryData = ({trackingData}) => {
   }
 };
 
-const TrackingDataSection = ({trackingData}) => {
+const TrackingDataSection = ({trackingData, isMobileScreen}) => {
   // const [isVisible, setIsVisible] = useState(false);
 
   // const scrollToTop = () => {
-  //   const trackingDataSection = document.querySelector('.tracking-data-section');
+  //   const trackingDataSection = document.querySelector('.tracking-details-container');
   //   if (trackingDataSection) {
   //     trackingDataSection.scrollTo({
   //       top: 0,
@@ -65,16 +65,14 @@ const TrackingDataSection = ({trackingData}) => {
   
   // useEffect(() => {
   //   const toggleVisibility = () => {
-  //     const trackingDataSection = document.querySelector('.tracking-data-section');
-  //     if (trackingDataSection.scrollTop > 50) {
+  //     const trackingDataSection = document.querySelector('.tracking-details-container');
+  //     if (trackingDataSection.scrollTop > 100) {
   //       setIsVisible(true);
   //     } else {
   //       setIsVisible(false);
   //     }
   //   };
-    
-  
-  //   const trackingDataSection = document.querySelector('.tracking-data-section');
+  //   const trackingDataSection = document.querySelector('.tracking-details-container');
   //   trackingDataSection.addEventListener("scroll", toggleVisibility);
   
   //   return () => trackingDataSection.removeEventListener("scroll", toggleVisibility);
@@ -217,6 +215,13 @@ const TrackingDataSection = ({trackingData}) => {
             </section>
           </article>
         )}
+       {/* {isVisible && isMobileScreen && (
+          <div>
+            <button className="scroll-top " onClick={scrollToTop}>
+              <ArrowUpCircle width={20} height={20}/>
+            </button>
+          </div>
+        )}*/}
       </section>
     </>
   )
