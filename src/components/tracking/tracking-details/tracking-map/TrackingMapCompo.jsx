@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./TrackingMapCompo.css";
-import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
+import { GoogleMap, InfoWindow, Marker, Polyline } from "@react-google-maps/api";
 import CAR_ICON from "../../../../assets/images/map-images/CarIcon.png";
 import PICKUP_ICON from "../../../../assets/images/map-images/Pickup.png";
 import DROPOFF_ICON from "../../../../assets/images/map-images/Dropoff.png";
-import { openImageInNewTab } from "../../../../utils/helper";
+import { JOB_STATUS_JSON, openImageInNewTab } from "../../../../utils/helper";
+import socket from "../../../../utils/socket";
 
 const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
   const [currentPosition, setCurrentPosition] = useState(null);
@@ -15,6 +16,47 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [selectedPickup, setSelectedPickup] = useState(null);
   const [selectedDropoff, setSelectedDropoff] = useState(null);
+  const [pathCoordinates, setPathCoordinates] = useState([]);
+
+  useEffect(() => {
+    if (
+      Object.keys(trackingData?.job_details).length > 0 &&
+      (trackingData?.job_details?.job_status === JOB_STATUS_JSON.accepted ||
+        trackingData?.job_details?.job_status === JOB_STATUS_JSON.pickup ||
+        trackingData?.job_details?.job_status === JOB_STATUS_JSON.running)
+    ) {
+      // Listen for a specific event
+      socket.connect();
+      socket.on("location_update", (data) => {
+        const { job_id, latitude, longitude } = data;
+        if (job_id === trackingData?.job_details?.jobId.toString()) {
+          console.log("data--", data);
+          const updatedCoordinates = [
+            ...pathCoordinates,
+            { lat: Number(latitude), lng: Number(longitude) },
+          ];
+          // console.log("updated--", updatedCoordinates);
+          setPathCoordinates(updatedCoordinates);
+          setDriverPosition({ lat: Number(latitude), lng: Number(longitude) });
+        }
+      });
+
+      // Clean up when component unmounts
+      socket.on("reconnect", (attemptNumber) => {
+        console.log("Reconnected after attempt:", attemptNumber);
+      });
+
+      socket.on("reconnect_failed", () => {
+        console.log("Reconnection failed");
+      });
+      console.log("socket--", socket);
+      return () => {
+        socket.off("location_update");
+        console.log("disconnect");
+        socket.disconnect();
+      };
+    }
+  }, [trackingData?.job_details?.jobId]);
 
   useEffect(() => {
     if (
@@ -83,7 +125,7 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
       map.setCenter(center);
       map.setZoom(zoom);
     }
-  }, [isLoaded, map, driverPosition, pickupLocation, dropoffLocation]);
+  }, [isLoaded, map, driverPosition, pickupLocation, dropoffLocation, pathCoordinates]);
 
   function calculateZoomLevel(bounds, mapDiv) {
     const WORLD_DIM = { height: 256, width: 256 };
@@ -195,27 +237,26 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
               )}
 
               {/* Polyline from currentPosition to pickupLocation */}
-              {/* {pathCoordinates.length > 0 && currentPosition !== null && (
-            <Polyline
-              // path={pathCoordinates}
-              path={[currentPosition, pickupLocation]}
-              options={{
-                strokeColor: "#0000FF",
-                strokeOpacity: 1,
-                strokeWeight: 2,
-              }}
-            />
-          )} */}
+              {pathCoordinates.length > 0 && currentPosition !== null && (
+                <Polyline
+                  path={[currentPosition, pickupLocation]}
+                  options={{
+                    strokeColor: "#0000FF",
+                    strokeOpacity: 1,
+                    strokeWeight: 2,
+                  }}
+                />
+              )}
 
               {/* Polyline for the continuous path updates */}
-              {/* <Polyline
-            path={pathCoordinates}
-            options={{
-              strokeColor: "#0000FF",
-              strokeOpacity: 1,
-              strokeWeight: 2,
-            }}
-          /> */}
+              <Polyline
+                path={pathCoordinates}
+                options={{
+                  strokeColor: "#0000FF",
+                  strokeOpacity: 1,
+                  strokeWeight: 2,
+                }}
+              />
 
               {pickupLocation !== null &&
                 trackingData?.job_details?.pickup_details && (
