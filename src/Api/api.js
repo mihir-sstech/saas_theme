@@ -22,7 +22,7 @@ export const makeApiCall = async (options) => {
 }
 
 export const driverDetails = {
-    DRIVER_FRONT_URL: "/driver007_frontend/",
+    DRIVER_FRONT_URL: "/",
     SUCCESS_CODE: 200,
 }
 
@@ -33,18 +33,4 @@ export const useGoogleMapLoader = () => {
     });
 
     return { isLoaded, loadError };
-};
-
-export const JOB_STATUS_JSON = {
-    incomplete: 0,
-    created: 1,
-    accepted: 2,
-    pickup: 3,
-    running: 4,
-    completed: 5,
-    recreated: 6,
-    cancelled: 7,
-    returned: 8,
-    deleted: 9,
-    rejected: 10,
 };
