@@ -19,6 +19,62 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
   const [pathCoordinates, setPathCoordinates] = useState([]);
 
   useEffect(() => {
+    const positions = [];
+
+    // Set pickup location
+    if (
+      trackingData?.job_details?.pickup_details?.pickup_latitude &&
+      trackingData?.job_details?.pickup_details?.pickup_longitude
+    ) {
+      const pickupLat = Number(trackingData.job_details.pickup_details.pickup_latitude);
+      const pickupLng = Number(trackingData.job_details.pickup_details.pickup_longitude);
+      setPickupLocation({
+        lat: pickupLat,
+        lng: pickupLng,
+      });
+      positions.push({ lat: pickupLat, lng: pickupLng });
+    }
+
+    // Set dropoff locations
+    if (
+      trackingData?.job_details?.dropoff_details?.dropoff_latitude &&
+      trackingData?.job_details?.dropoff_details?.dropoff_longitude
+    ) {
+      const dropoffLat = Number(trackingData.job_details.dropoff_details.dropoff_latitude);
+      const dropoffLng = Number(trackingData.job_details.dropoff_details.dropoff_longitude);
+      setDropoffLocation({
+        lat: dropoffLat,
+        lng: dropoffLng,
+      });
+      positions.push({ lat: dropoffLat, lng: dropoffLng });
+    }
+
+    // Set driver location
+    if (
+      trackingData?.job_details?.driver_details?.driver_latitude &&
+      trackingData?.job_details?.driver_details?.driver_longitude
+    ) {
+      const driverLat = Number(trackingData.job_details.driver_details.driver_latitude);
+      const driverLng = Number(trackingData.job_details.driver_details.driver_longitude);
+      setDriverPosition({
+        lat: driverLat,
+        lng: driverLng,
+      });
+      positions.push({ lat: driverLat, lng: driverLng })
+    }
+
+    // Calculate and set the current position
+    if (positions.length > 0) {
+      const midpointLat =
+        positions.reduce((sum, pos) => sum + pos.lat, 0) /
+        (positions.length);
+      const midpointLng =
+        positions.reduce((sum, pos) => sum + pos.lng, 0) / positions.length;
+      setCurrentPosition({ lat: midpointLat, lng: midpointLng });
+    }
+  }, [trackingData]);
+
+  useEffect(() => {
     if (
       Object.keys(trackingData?.job_details).length > 0 &&
       (trackingData?.job_details?.job_status === JOB_STATUS_JSON.accepted ||
@@ -60,40 +116,6 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
 
   useEffect(() => {
     if (
-      trackingData?.job_details?.pickup_details?.pickup_latitude &&
-      trackingData?.job_details?.pickup_details?.pickup_longitude
-    ) {
-      setPickupLocation({
-        lat: Number(trackingData.job_details.pickup_details.pickup_latitude),
-        lng: Number(trackingData.job_details.pickup_details.pickup_longitude),
-      });
-      setCurrentPosition({
-        lat: Number(trackingData.job_details.pickup_details.pickup_latitude),
-        lng: Number(trackingData.job_details.pickup_details.pickup_longitude),
-      });
-    }
-    if (
-      trackingData?.job_details?.dropoff_details?.dropoff_latitude &&
-      trackingData?.job_details?.dropoff_details?.dropoff_longitude
-    ) {
-      setDropoffLocation({
-        lat: Number(trackingData.job_details.dropoff_details.dropoff_latitude),
-        lng: Number(trackingData.job_details.dropoff_details.dropoff_longitude),
-      });
-    }
-    if (
-      trackingData?.job_details?.driver_details?.driver_latitude &&
-      trackingData?.job_details?.driver_details?.driver_longitude
-    ) {
-      setDriverPosition({
-        lat: Number(trackingData.job_details.driver_details.driver_latitude),
-        lng: Number(trackingData.job_details.driver_details.driver_longitude),
-      });
-    }
-  }, [trackingData]);
-
-  useEffect(() => {
-    if (
       isLoaded &&
       map &&
       driverPosition &&
@@ -112,42 +134,9 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
       bounds.extend(
         new window.google.maps.LatLng(dropoffLocation.lat, dropoffLocation.lng)
       );
-
-      // Get the center and calculate the zoom level
-      const center = bounds.getCenter();
-      let zoom = calculateZoomLevel(bounds, map.getDiv());
-
-      if (zoom > 10) {
-        zoom = zoom - 1;
-      }
-
-      // Set the map center and zoom level
-      map.setCenter(center);
-      map.setZoom(zoom);
+      map.fitBounds(bounds);
     }
   }, [isLoaded, map, driverPosition, pickupLocation, dropoffLocation, pathCoordinates]);
-
-  function calculateZoomLevel(bounds, mapDiv) {
-    const WORLD_DIM = { height: 256, width: 256 };
-    const ZOOM_MAX = 21;
-
-    const ne = bounds.getNorthEast();
-    const sw = bounds.getSouthWest();
-
-    const latFraction = Math.abs(ne.lat() - sw.lat()) / 180.0;
-
-    const lngDiff = ne.lng() - sw.lng();
-    const lngFraction = (lngDiff < 0 ? lngDiff + 360 : lngDiff) / 360.0;
-
-    const latZoom = zoom(mapDiv.offsetHeight, WORLD_DIM.height, latFraction);
-    const lngZoom = zoom(mapDiv.offsetWidth, WORLD_DIM.width, lngFraction);
-
-    return Math.min(latZoom, lngZoom, ZOOM_MAX);
-  }
-
-  function zoom(mapPx, worldPx, fraction) {
-    return Math.floor(Math.log(mapPx / worldPx / fraction) / Math.LN2);
-  }
 
   useEffect(() => {
     if (currentPosition !== null) {
@@ -196,7 +185,7 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                     position={driverPosition}
                     icon={{
                       url: CAR_ICON,
-                      scaledSize: new window.google.maps.Size(70, 70),
+                      scaledSize: isMobileScreen ? new window.google.maps.Size(40, 40) : new window.google.maps.Size(70, 70),
                     }}
                     title={trackingData?.job_details?.driver_details.name}
                     onClick={() =>
@@ -264,7 +253,7 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                     position={pickupLocation}
                     icon={{
                       url: PICKUP_ICON,
-                      scaledSize: new window.google.maps.Size(40, 40),
+                      scaledSize: isMobileScreen ? new window.google.maps.Size(30, 30) : new window.google.maps.Size(40, 40),
                     }}
                     title={
                       trackingData?.job_details?.pickup_details.pickup_address
@@ -283,7 +272,7 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                     position={dropoffLocation}
                     icon={{
                       url: DROPOFF_ICON,
-                      scaledSize: new window.google.maps.Size(40, 40),
+                      scaledSize: isMobileScreen ? new window.google.maps.Size(30, 30) : new window.google.maps.Size(40, 40),
                     }}
                     title={
                       trackingData?.job_details?.dropoff_details.dropoff_address

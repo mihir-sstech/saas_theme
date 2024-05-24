@@ -22,7 +22,7 @@ export const makeApiCall = async (options) => {
 }
 
 export const driverDetails = {
-    DRIVER_FRONT_URL: "/",
+    DRIVER_FRONT_URL: "/driver007_frontend/",
     SUCCESS_CODE: 200,
 }
 
