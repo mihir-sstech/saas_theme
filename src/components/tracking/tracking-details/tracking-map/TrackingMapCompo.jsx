@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./TrackingMapCompo.css";
 import { GoogleMap, InfoWindow, Marker, Polyline } from "@react-google-maps/api";
 import CAR_ICON from "../../../../assets/images/map-images/CarIcon.png";
 import PICKUP_ICON from "../../../../assets/images/map-images/Pickup.png";
 import DROPOFF_ICON from "../../../../assets/images/map-images/Dropoff.png";
-import { JOB_STATUS_JSON, openImageInNewTab } from "../../../../utils/helper";
+import { capitalizeByCharacter, JOB_STATUS_JSON, openImageInNewTab } from "../../../../utils/helper";
 import socket from "../../../../utils/socket";
 
 const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
@@ -138,13 +138,9 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
     }
   }, [isLoaded, map, driverPosition, pickupLocation, dropoffLocation, pathCoordinates]);
 
-  useEffect(() => {
-    if (currentPosition !== null) {
-      if (map && currentPosition.lat !== 0 && currentPosition.lng !== 0) {
-        map.panTo(currentPosition);
-      }
-    }
-  }, [map, currentPosition]);
+  const handleMapLoad = useCallback((mapInstance) => {
+    setMap(mapInstance);
+  }, []);
 
   return (
     isLoaded &&
@@ -156,9 +152,9 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
             height: isMobileScreen ? "20em" : "29em",
             outline: "none",
           }}
-          center={currentPosition}
-          // zoom={12}
-          onLoad={(map) => setMap(map)}
+          center={currentPosition || { lat: 0, lng: 0 }}
+          zoom={15}
+          onLoad={handleMapLoad}
           options={{
             streetViewControl: false,
             mapTypeControl: false,
@@ -185,9 +181,11 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                     position={driverPosition}
                     icon={{
                       url: CAR_ICON,
-                      scaledSize: isMobileScreen ? new window.google.maps.Size(40, 40) : new window.google.maps.Size(70, 70),
+                      scaledSize: isMobileScreen
+                        ? new window.google.maps.Size(40, 40)
+                        : new window.google.maps.Size(50, 50),
                     }}
-                    title={trackingData?.job_details?.driver_details.name}
+                    title={capitalizeByCharacter(trackingData?.job_details?.driver_details.name, " ")}
                     onClick={() =>
                       setSelectedDriver(
                         trackingData?.job_details?.driver_details
@@ -253,7 +251,9 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                     position={pickupLocation}
                     icon={{
                       url: PICKUP_ICON,
-                      scaledSize: isMobileScreen ? new window.google.maps.Size(30, 30) : new window.google.maps.Size(40, 40),
+                      scaledSize: isMobileScreen
+                        ? new window.google.maps.Size(25, 25)
+                        : new window.google.maps.Size(30, 30),
                     }}
                     title={
                       trackingData?.job_details?.pickup_details.pickup_address
@@ -272,7 +272,9 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                     position={dropoffLocation}
                     icon={{
                       url: DROPOFF_ICON,
-                      scaledSize: isMobileScreen ? new window.google.maps.Size(30, 30) : new window.google.maps.Size(40, 40),
+                      scaledSize: isMobileScreen
+                        ? new window.google.maps.Size(30, 30)
+                        : new window.google.maps.Size(35, 35),
                     }}
                     title={
                       trackingData?.job_details?.dropoff_details.dropoff_address
