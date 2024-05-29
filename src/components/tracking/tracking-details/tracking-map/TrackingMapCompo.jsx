@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./TrackingMapCompo.css";
-import { GoogleMap, InfoWindow, Marker, Polyline } from "@react-google-maps/api";
+import { DirectionsRenderer, GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import CAR_ICON from "../../../../assets/images/map-images/CarIcon.png";
 import PICKUP_ICON from "../../../../assets/images/map-images/Pickup.png";
 import DROPOFF_ICON from "../../../../assets/images/map-images/Dropoff.png";
-import { JOB_STATUS_JSON, openImageInNewTab } from "../../../../utils/helper";
+import { capitalizeByCharacter, JOB_STATUS_JSON, openImageInNewTab } from "../../../../utils/helper";
 import socket from "../../../../utils/socket";
 
 const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
@@ -16,7 +16,7 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [selectedPickup, setSelectedPickup] = useState(null);
   const [selectedDropoff, setSelectedDropoff] = useState(null);
-  const [pathCoordinates, setPathCoordinates] = useState([]);
+  const [directions, setDirections] = useState(null);
 
   useEffect(() => {
     const positions = [];
@@ -77,8 +77,7 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
   useEffect(() => {
     if (
       Object.keys(trackingData?.job_details).length > 0 &&
-      (trackingData?.job_details?.job_status === JOB_STATUS_JSON.accepted ||
-        trackingData?.job_details?.job_status === JOB_STATUS_JSON.pickup ||
+      (trackingData?.job_details?.job_status === JOB_STATUS_JSON.pickup ||
         trackingData?.job_details?.job_status === JOB_STATUS_JSON.running)
     ) {
       // Listen for a specific event
@@ -87,13 +86,11 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
         const { job_id, latitude, longitude } = data;
         if (job_id === trackingData?.job_details?.jobId.toString()) {
           console.log("data--", data);
-          const updatedCoordinates = [
-            ...pathCoordinates,
-            { lat: Number(latitude), lng: Number(longitude) },
-          ];
-          // console.log("updated--", updatedCoordinates);
-          setPathCoordinates(updatedCoordinates);
-          setDriverPosition({ lat: Number(latitude), lng: Number(longitude) });
+          const newDriverPosition = {
+            lat: Number(latitude),
+            lng: Number(longitude),
+          };
+          setDriverPosition(newDriverPosition);
         }
       });
 
@@ -112,7 +109,7 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
         socket.disconnect();
       };
     }
-  }, [trackingData?.job_details?.jobId]);
+  }, [trackingData?.job_details]);
 
   useEffect(() => {
     if (
@@ -120,7 +117,8 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
       map &&
       driverPosition &&
       pickupLocation &&
-      dropoffLocation
+      dropoffLocation &&
+      (trackingData?.job_details?.job_status !== JOB_STATUS_JSON.pickup && trackingData?.job_details?.job_status !== JOB_STATUS_JSON.running)
     ) {
       const bounds = new window.google.maps.LatLngBounds();
 
@@ -136,15 +134,69 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
       );
       map.fitBounds(bounds);
     }
-  }, [isLoaded, map, driverPosition, pickupLocation, dropoffLocation, pathCoordinates]);
+  }, [isLoaded, map, driverPosition, pickupLocation, dropoffLocation, trackingData?.job_details?.job_status]);
 
   useEffect(() => {
-    if (currentPosition !== null) {
-      if (map && currentPosition.lat !== 0 && currentPosition.lng !== 0) {
-        map.panTo(currentPosition);
-      }
+    if (
+      pickupLocation !== null &&
+      dropoffLocation &&
+      driverPosition !== null &&
+      (trackingData?.job_details?.job_status === JOB_STATUS_JSON.pickup || trackingData?.job_details?.job_status === JOB_STATUS_JSON.running)
+    ) {
+      const dropoffLatLng = new window.google.maps.LatLng(
+        dropoffLocation.lat,
+        dropoffLocation.lng
+      );
+      const pickupLatLng = new window.google.maps.LatLng(
+        pickupLocation.lat,
+        pickupLocation.lng
+      );
+      const driverLatLng = new window.google.maps.LatLng(
+        driverPosition.lat,
+        driverPosition.lng
+      );
+      const waypoints =
+        trackingData?.job_details?.job_status === JOB_STATUS_JSON.running
+          ? [
+            {
+              location: dropoffLatLng,
+              stopover: true,
+            },
+          ]
+          : [
+            {
+              location: pickupLatLng,
+              stopover: true,
+            },
+          ];
+      const directionsService = new window.google.maps.DirectionsService();
+      const destinationRoute = trackingData?.job_details?.job_status === JOB_STATUS_JSON.pickup ? pickupLatLng : dropoffLatLng;
+      directionsService.route(
+        {
+          origin: driverLatLng,
+          destination: destinationRoute,
+          waypoints,
+          travelMode: window.google.maps.TravelMode.DRIVING,
+        },
+        (result, status) => {
+          if (status === window.google.maps.DirectionsStatus.OK) {
+            setDirections(result);
+          } else {
+            console.error("Error fetching directions", status);
+          }
+        }
+      );
     }
-  }, [map, currentPosition]);
+  }, [
+    pickupLocation,
+    dropoffLocation,
+    driverPosition,
+    trackingData?.job_details?.job_status,
+  ]);
+
+  const handleMapLoad = useCallback((mapInstance) => {
+    setMap(mapInstance);
+  }, []);
 
   return (
     isLoaded &&
@@ -156,9 +208,9 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
             height: isMobileScreen ? "20em" : "29em",
             outline: "none",
           }}
-          center={currentPosition}
-          // zoom={12}
-          onLoad={(map) => setMap(map)}
+          center={currentPosition || { lat: 0, lng: 0 }}
+          zoom={15}
+          onLoad={handleMapLoad}
           options={{
             streetViewControl: false,
             mapTypeControl: false,
@@ -185,9 +237,11 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                     position={driverPosition}
                     icon={{
                       url: CAR_ICON,
-                      scaledSize: isMobileScreen ? new window.google.maps.Size(40, 40) : new window.google.maps.Size(70, 70),
+                      scaledSize: isMobileScreen
+                        ? new window.google.maps.Size(40, 40)
+                        : new window.google.maps.Size(50, 50),
                     }}
-                    title={trackingData?.job_details?.driver_details.name}
+                    title={capitalizeByCharacter(trackingData?.job_details?.driver_details.name, " ")}
                     onClick={() =>
                       setSelectedDriver(
                         trackingData?.job_details?.driver_details
@@ -225,35 +279,15 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                 </InfoWindow>
               )}
 
-              {/* Polyline from currentPosition to pickupLocation */}
-              {pathCoordinates.length > 0 && currentPosition !== null && (
-                <Polyline
-                  path={[currentPosition, pickupLocation]}
-                  options={{
-                    strokeColor: "#0000FF",
-                    strokeOpacity: 1,
-                    strokeWeight: 2,
-                  }}
-                />
-              )}
-
-              {/* Polyline for the continuous path updates */}
-              <Polyline
-                path={pathCoordinates}
-                options={{
-                  strokeColor: "#0000FF",
-                  strokeOpacity: 1,
-                  strokeWeight: 2,
-                }}
-              />
-
               {pickupLocation !== null &&
                 trackingData?.job_details?.pickup_details && (
                   <Marker
                     position={pickupLocation}
                     icon={{
                       url: PICKUP_ICON,
-                      scaledSize: isMobileScreen ? new window.google.maps.Size(30, 30) : new window.google.maps.Size(40, 40),
+                      scaledSize: isMobileScreen
+                        ? new window.google.maps.Size(25, 25)
+                        : new window.google.maps.Size(30, 30),
                     }}
                     title={
                       trackingData?.job_details?.pickup_details.pickup_address
@@ -272,7 +306,9 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                     position={dropoffLocation}
                     icon={{
                       url: DROPOFF_ICON,
-                      scaledSize: isMobileScreen ? new window.google.maps.Size(30, 30) : new window.google.maps.Size(40, 40),
+                      scaledSize: isMobileScreen
+                        ? new window.google.maps.Size(30, 30)
+                        : new window.google.maps.Size(35, 35),
                     }}
                     title={
                       trackingData?.job_details?.dropoff_details.dropoff_address
@@ -335,6 +371,23 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                     </p>
                   </div>
                 </InfoWindow>
+              )}
+
+              {directions && (
+                <>
+                  <DirectionsRenderer
+                    directions={directions}
+                    options={{
+                      polylineOptions: {
+                        strokeColor: "blue",
+                        strokeOpacity: 0.6,
+                        strokeWeight: 5,
+                      },
+                      suppressMarkers: true,
+                      preserveViewport: true,
+                    }}
+                  />
+                </>
               )}
             </>
           )}
