@@ -209,7 +209,7 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
             outline: "none",
           }}
           center={currentPosition || { lat: 0, lng: 0 }}
-          zoom={15}
+          // zoom={15}
           onLoad={handleMapLoad}
           options={{
             streetViewControl: false,
