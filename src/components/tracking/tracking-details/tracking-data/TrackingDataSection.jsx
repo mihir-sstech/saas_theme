@@ -112,7 +112,7 @@ const TrackingDataSection = ({ trackingData, isMobileScreen }) => {
               </article>
               <article className='consignment-code'>
                 <header>Consignment No : </header>
-                <footer>{trackingData?.tracking_details?.consignment_no || "N/A"}</footer>
+                <footer>#{trackingData?.tracking_details?.consignment_no || "N/A"}</footer>
               </article>
               <article className='order_no'>
                 <header>Order No : </header>
