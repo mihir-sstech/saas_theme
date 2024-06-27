@@ -1,94 +1,105 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
+import React, { useEffect, useState } from 'react'
+import { Modal, Toast } from 'react-bootstrap'
+import './HeaderPopupForm.css'
 
-const HeaderPopupForm = () => {
-  // for validation
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required(" Name is required"),
-    email: Yup.string()
-      .required("Email is required")
-      .email("Entered value does not match email format"),
-    sendMessage: Yup.string().required("Please,leave us a message."),
-  });
+const HeaderPopupForm = ({isContactModalOpen, toggleContactModal }) => {
+    const [initFormData, setInitFormData] = useState({
+        name: "",
+        email:"",
+        message:""
+    });
+    const [isLoading, setIsLoading] = useState(false);
+    const [toastMsg, setToastMsg] = useState('');
 
-  const formOptions = { resolver: yupResolver(validationSchema) };
-  // get functions to build form with useForm() hook
-  const { register, handleSubmit, formState } = useForm(formOptions);
-  const { errors } = formState;
+    const handleInputChange = (e) => {
+        const {value} = e.target;
+        setInitFormData((prev) => ({
+            ...prev,
+        }))
+    };
 
-  function onSubmit(data, e) {
-    // display form data on success
-    e.target.reset();
-  }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+        } catch (error) {
+            console.log("Err--", error);
+        } finally {
+            setIsLoading(false);
+            setInitFormData({
+                tracking_code: ""
+            });
+        }
+    };  
 
   return (
-    <>
-      <form id="contact-form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="messages"></div>
-        <div className="row controls">
-          <div className="col-12">
-            <div className="input-group-meta form-group mb-20">
-              <label>Name</label>
-              <input
-                type="text"
-                placeholder="Your Name"
-                name="name"
-                {...register("name")}
-                className={`${errors.name ? "is-invalid" : ""}`}
-              />
-              {errors.name && (
-                <div className="invalid-feedback">{errors.name?.message}</div>
-              )}
+    <Modal show={isContactModalOpen} onHide={toggleContactModal} centered className='tracking-modal-parent'> 
+    <Modal.Body style={{position: "relative"}} className='tracking-modal'>
+      <Modal.Header closeButton className='modal-header'></Modal.Header>
+      <section className='form-title'>Contact Us</section> 
+      <article className='modal-container'>
+        <form id="contact-form" onSubmit={handleSubmit}>
+          <div className="messages"></div>
+          <div className="row controls">
+            <div className="col-12">
+              <div className="form-group mb-20">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  placeholder="Your Name"
+                  name="name"
+                  required
+                />
+              </div>
             </div>
-          </div>
-          {/* End .col */}
-
-          <div className="col-12">
-            <div className="input-group-meta form-group mb-20">
-              <label>Email*</label>
-              <input
-                placeholder="Email Address"
-                name="email"
-                type="text"
-                {...register("email")}
-                className={` ${errors.email ? "is-invalid" : ""}`}
-              />
-              {errors.email && (
-                <div className="invalid-feedback">{errors.email?.message}</div>
-              )}
+            {/* End .col */}
+  
+            <div className="col-12">
+              <div className="form-group mb-20">
+                <label htmlFor="email">Email*</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  placeholder="Email Address"
+                  name="email"
+                  required
+                />
+              </div>
             </div>
-          </div>
-          {/* End .col */}
-
-          <div className="col-12">
-            <div className="input-group-meta form-group mb-30">
-              <label>Message*</label>
-              <textarea
-                placeholder="Your message"
-                name="sendMessage"
-                type="text"
-                {...register("message")}
-                className={`${errors.sendMessage ? "is-invalid" : ""}`}
-              ></textarea>
-              {errors.sendMessage && (
-                <div className="invalid-feedback">
-                  {errors.sendMessage?.message}
-                </div>
-              )}
+            {/* End .col */}
+  
+            <div className="col-12">
+              <div className="form-group mb-30">
+                <label htmlFor="sendMessage">Message*</label>
+                <textarea
+                  className="form-control"
+                  id="sendMessage"
+                  placeholder="Your message"
+                  name="sendMessage"
+                  required
+                ></textarea>
+              </div>
             </div>
+            {/* End .col */}
+  
+            <div className="col-12">
+              <button type="submit" className="theme-btn-seven form-btn w-100">Send Message</button>
+            </div>
+            {/* End .col */}
           </div>
-          {/* End .col */}
+        </form>
+        {toastMsg && (
+          <Toast bg='danger' className='toast-compo'>
+            <Toast.Body className='toast-msg'>{toastMsg}</Toast.Body>
+          </Toast>
+        )}
+      </article>
+    </Modal.Body>
+  </Modal>
+  
+  )
+}
 
-          <div className="col-12">
-            <button className="theme-btn-seven w-100">Send Message</button>
-          </div>
-          {/* End .col */}
-        </div>
-      </form>
-    </>
-  );
-};
-
-export default HeaderPopupForm;
+export default HeaderPopupForm

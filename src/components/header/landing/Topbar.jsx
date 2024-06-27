@@ -18,6 +18,8 @@ Modal.setAppElement("#root");
 const Topbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isTrackingModalOpen, setIsTrackingModalOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   const [navbar, setNavbar] = useState(false);
@@ -30,6 +32,13 @@ const Topbar = () => {
     setIsTrackingModalOpen(!isTrackingModalOpen);
   };
 
+  function toggleModalContact() {
+    setIsContactOpen(!isContactOpen);
+  }
+
+  const toggleContactModal = () => {
+    setIsContactModalOpen(!isContactModalOpen);
+  };
   const changeBackground = () => {
     if (window.scrollY >= 90) {
       setNavbar(true);
@@ -137,7 +146,7 @@ const Topbar = () => {
             </button>
           </div>
           <div className="right-widget">
-            <button className="demo-button" onClick={toggleModalOne}>
+            <button className="demo-button" onClick={toggleContactModal}>
               <span>Request A Demo</span>
               <img src={user} alt="icon" />
             </button>
@@ -206,51 +215,7 @@ const Topbar = () => {
         </Scrollspy>
       </div>
       {/* Mobile Menu End */}
-
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={toggleModalOne}
-        contentLabel="My dialog"
-        className="custom-modal  modal-contact-popup-one dark-style"
-        overlayClassName="custom-overlay"
-        closeTimeoutMS={500}
-      >
-        <div className="box_inner ">
-          <main className="main-body box_inner modal-content clearfix">
-            <button className="close" onClick={toggleModalOne}>
-              <img src={close} alt="close" />
-            </button>
-            {/* End close icon */}
-
-            <div className="left-side">
-              <div className="d-flex flex-column justify-content-between h-100">
-                <div className="row">
-                  <div className="col-xl-10 col-lg-8 m-auto">
-                    <blockquote>
-                      “I never dreamed about success. I worked for it.”
-                    </blockquote>
-                    <span className="bio">—Estée Lauder</span>
-                  </div>
-                </div>
-                <img
-                  src={conatctIamge}
-                  alt=""
-                  className="illustration mt-auto"
-                />
-              </div>
-            </div>
-            {/* /.left-side */}
-
-            <div className="right-side">
-              <h2 className="form-title">Contact us</h2>
-              <HeaderPopupForm />
-            </div>
-            {/*  /.right-side */}
-          </main>
-          {/* /.main-body */}
-        </div>
-      </Modal>
-      {/* End  Modal For Request a demo */}
+      <HeaderPopupForm isContactModalOpen={isContactModalOpen} toggleContactModal={toggleContactModal}/>
 
       {/* Tracking Modal */}
       <TrackingModal isTrackingModalOpen={isTrackingModalOpen} toggleTrackingModal={toggleTrackingModal} />
