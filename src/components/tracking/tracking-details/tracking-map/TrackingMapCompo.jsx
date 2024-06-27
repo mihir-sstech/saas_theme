@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./TrackingMapCompo.css";
-import { GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
+import { DirectionsRenderer, GoogleMap, InfoWindow, Marker } from "@react-google-maps/api";
 import CAR_ICON from "../../../../assets/images/map-images/CarIcon.png";
 import PICKUP_ICON from "../../../../assets/images/map-images/Pickup.png";
 import DROPOFF_ICON from "../../../../assets/images/map-images/Dropoff.png";
-import { openImageInNewTab } from "../../../../utils/helper";
+import { capitalizeByCharacter, JOB_STATUS_JSON, openImageInNewTab } from "../../../../utils/helper";
+import socket from "../../../../utils/socket";
 
 const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
   const [currentPosition, setCurrentPosition] = useState(null);
@@ -15,40 +16,100 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [selectedPickup, setSelectedPickup] = useState(null);
   const [selectedDropoff, setSelectedDropoff] = useState(null);
+  const [directions, setDirections] = useState(null);
 
   useEffect(() => {
+    const positions = [];
+
+    // Set pickup location
     if (
       trackingData?.job_details?.pickup_details?.pickup_latitude &&
       trackingData?.job_details?.pickup_details?.pickup_longitude
     ) {
+      const pickupLat = Number(trackingData.job_details.pickup_details.pickup_latitude);
+      const pickupLng = Number(trackingData.job_details.pickup_details.pickup_longitude);
       setPickupLocation({
-        lat: Number(trackingData.job_details.pickup_details.pickup_latitude),
-        lng: Number(trackingData.job_details.pickup_details.pickup_longitude),
+        lat: pickupLat,
+        lng: pickupLng,
       });
-      setCurrentPosition({
-        lat: Number(trackingData.job_details.pickup_details.pickup_latitude),
-        lng: Number(trackingData.job_details.pickup_details.pickup_longitude),
-      });
+      positions.push({ lat: pickupLat, lng: pickupLng });
     }
+
+    // Set dropoff locations
     if (
       trackingData?.job_details?.dropoff_details?.dropoff_latitude &&
       trackingData?.job_details?.dropoff_details?.dropoff_longitude
     ) {
+      const dropoffLat = Number(trackingData.job_details.dropoff_details.dropoff_latitude);
+      const dropoffLng = Number(trackingData.job_details.dropoff_details.dropoff_longitude);
       setDropoffLocation({
-        lat: Number(trackingData.job_details.dropoff_details.dropoff_latitude),
-        lng: Number(trackingData.job_details.dropoff_details.dropoff_longitude),
+        lat: dropoffLat,
+        lng: dropoffLng,
       });
+      positions.push({ lat: dropoffLat, lng: dropoffLng });
     }
+
+    // Set driver location
     if (
       trackingData?.job_details?.driver_details?.driver_latitude &&
       trackingData?.job_details?.driver_details?.driver_longitude
     ) {
+      const driverLat = Number(trackingData.job_details.driver_details.driver_latitude);
+      const driverLng = Number(trackingData.job_details.driver_details.driver_longitude);
       setDriverPosition({
-        lat: Number(trackingData.job_details.driver_details.driver_latitude),
-        lng: Number(trackingData.job_details.driver_details.driver_longitude),
+        lat: driverLat,
+        lng: driverLng,
       });
+      positions.push({ lat: driverLat, lng: driverLng })
+    }
+
+    // Calculate and set the current position
+    if (positions.length > 0) {
+      const midpointLat =
+        positions.reduce((sum, pos) => sum + pos.lat, 0) /
+        (positions.length);
+      const midpointLng =
+        positions.reduce((sum, pos) => sum + pos.lng, 0) / positions.length;
+      setCurrentPosition({ lat: midpointLat, lng: midpointLng });
     }
   }, [trackingData]);
+
+  useEffect(() => {
+    if (
+      Object.keys(trackingData?.job_details).length > 0 &&
+      (trackingData?.job_details?.job_status === JOB_STATUS_JSON.pickup ||
+        trackingData?.job_details?.job_status === JOB_STATUS_JSON.running)
+    ) {
+      // Listen for a specific event
+      socket.connect();
+      socket.on("location_update", (data) => {
+        const { job_id, latitude, longitude } = data;
+        if (job_id === trackingData?.job_details?.jobId.toString()) {
+          console.log("data--", data);
+          const newDriverPosition = {
+            lat: Number(latitude),
+            lng: Number(longitude),
+          };
+          setDriverPosition(newDriverPosition);
+        }
+      });
+
+      // Clean up when component unmounts
+      socket.on("reconnect", (attemptNumber) => {
+        console.log("Reconnected after attempt:", attemptNumber);
+      });
+
+      socket.on("reconnect_failed", () => {
+        console.log("Reconnection failed");
+      });
+      console.log("socket--", socket);
+      return () => {
+        socket.off("location_update");
+        console.log("disconnect");
+        socket.disconnect();
+      };
+    }
+  }, [trackingData?.job_details]);
 
   useEffect(() => {
     if (
@@ -56,7 +117,8 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
       map &&
       driverPosition &&
       pickupLocation &&
-      dropoffLocation
+      dropoffLocation &&
+      (trackingData?.job_details?.job_status !== JOB_STATUS_JSON.pickup && trackingData?.job_details?.job_status !== JOB_STATUS_JSON.running)
     ) {
       const bounds = new window.google.maps.LatLngBounds();
 
@@ -70,50 +132,71 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
       bounds.extend(
         new window.google.maps.LatLng(dropoffLocation.lat, dropoffLocation.lng)
       );
-
-      // Get the center and calculate the zoom level
-      const center = bounds.getCenter();
-      let zoom = calculateZoomLevel(bounds, map.getDiv());
-
-      if (zoom > 10) {
-        zoom = zoom - 1;
-      }
-
-      // Set the map center and zoom level
-      map.setCenter(center);
-      map.setZoom(zoom);
+      map.fitBounds(bounds);
     }
-  }, [isLoaded, map, driverPosition, pickupLocation, dropoffLocation]);
-
-  function calculateZoomLevel(bounds, mapDiv) {
-    const WORLD_DIM = { height: 256, width: 256 };
-    const ZOOM_MAX = 21;
-
-    const ne = bounds.getNorthEast();
-    const sw = bounds.getSouthWest();
-
-    const latFraction = Math.abs(ne.lat() - sw.lat()) / 180.0;
-
-    const lngDiff = ne.lng() - sw.lng();
-    const lngFraction = (lngDiff < 0 ? lngDiff + 360 : lngDiff) / 360.0;
-
-    const latZoom = zoom(mapDiv.offsetHeight, WORLD_DIM.height, latFraction);
-    const lngZoom = zoom(mapDiv.offsetWidth, WORLD_DIM.width, lngFraction);
-
-    return Math.min(latZoom, lngZoom, ZOOM_MAX);
-  }
-
-  function zoom(mapPx, worldPx, fraction) {
-    return Math.floor(Math.log(mapPx / worldPx / fraction) / Math.LN2);
-  }
+  }, [isLoaded, map, driverPosition, pickupLocation, dropoffLocation, trackingData?.job_details?.job_status]);
 
   useEffect(() => {
-    if (currentPosition !== null) {
-      if (map && currentPosition.lat !== 0 && currentPosition.lng !== 0) {
-        map.panTo(currentPosition);
-      }
+    if (
+      pickupLocation !== null &&
+      dropoffLocation &&
+      driverPosition !== null &&
+      (trackingData?.job_details?.job_status === JOB_STATUS_JSON.pickup || trackingData?.job_details?.job_status === JOB_STATUS_JSON.running)
+    ) {
+      const dropoffLatLng = new window.google.maps.LatLng(
+        dropoffLocation.lat,
+        dropoffLocation.lng
+      );
+      const pickupLatLng = new window.google.maps.LatLng(
+        pickupLocation.lat,
+        pickupLocation.lng
+      );
+      const driverLatLng = new window.google.maps.LatLng(
+        driverPosition.lat,
+        driverPosition.lng
+      );
+      const waypoints =
+        trackingData?.job_details?.job_status === JOB_STATUS_JSON.running
+          ? [
+            {
+              location: dropoffLatLng,
+              stopover: true,
+            },
+          ]
+          : [
+            {
+              location: pickupLatLng,
+              stopover: true,
+            },
+          ];
+      const directionsService = new window.google.maps.DirectionsService();
+      const destinationRoute = trackingData?.job_details?.job_status === JOB_STATUS_JSON.pickup ? pickupLatLng : dropoffLatLng;
+      directionsService.route(
+        {
+          origin: driverLatLng,
+          destination: destinationRoute,
+          waypoints,
+          travelMode: window.google.maps.TravelMode.DRIVING,
+        },
+        (result, status) => {
+          if (status === window.google.maps.DirectionsStatus.OK) {
+            setDirections(result);
+          } else {
+            console.error("Error fetching directions", status);
+          }
+        }
+      );
     }
-  }, [map, currentPosition]);
+  }, [
+    pickupLocation,
+    dropoffLocation,
+    driverPosition,
+    trackingData?.job_details?.job_status,
+  ]);
+
+  const handleMapLoad = useCallback((mapInstance) => {
+    setMap(mapInstance);
+  }, []);
 
   return (
     isLoaded &&
@@ -125,9 +208,9 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
             height: isMobileScreen ? "20em" : "29em",
             outline: "none",
           }}
-          center={currentPosition}
-          // zoom={12}
-          onLoad={(map) => setMap(map)}
+          center={currentPosition || { lat: 0, lng: 0 }}
+          // zoom={15}
+          onLoad={handleMapLoad}
           options={{
             streetViewControl: false,
             mapTypeControl: false,
@@ -154,9 +237,11 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                     position={driverPosition}
                     icon={{
                       url: CAR_ICON,
-                      scaledSize: new window.google.maps.Size(70, 70),
+                      scaledSize: isMobileScreen
+                        ? new window.google.maps.Size(40, 40)
+                        : new window.google.maps.Size(50, 50),
                     }}
-                    title={trackingData?.job_details?.driver_details.name}
+                    title={capitalizeByCharacter(trackingData?.job_details?.driver_details.name, " ")}
                     onClick={() =>
                       setSelectedDriver(
                         trackingData?.job_details?.driver_details
@@ -194,36 +279,15 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                 </InfoWindow>
               )}
 
-              {/* Polyline from currentPosition to pickupLocation */}
-              {/* {pathCoordinates.length > 0 && currentPosition !== null && (
-            <Polyline
-              // path={pathCoordinates}
-              path={[currentPosition, pickupLocation]}
-              options={{
-                strokeColor: "#0000FF",
-                strokeOpacity: 1,
-                strokeWeight: 2,
-              }}
-            />
-          )} */}
-
-              {/* Polyline for the continuous path updates */}
-              {/* <Polyline
-            path={pathCoordinates}
-            options={{
-              strokeColor: "#0000FF",
-              strokeOpacity: 1,
-              strokeWeight: 2,
-            }}
-          /> */}
-
               {pickupLocation !== null &&
                 trackingData?.job_details?.pickup_details && (
                   <Marker
                     position={pickupLocation}
                     icon={{
                       url: PICKUP_ICON,
-                      scaledSize: new window.google.maps.Size(40, 40),
+                      scaledSize: isMobileScreen
+                        ? new window.google.maps.Size(25, 25)
+                        : new window.google.maps.Size(30, 30),
                     }}
                     title={
                       trackingData?.job_details?.pickup_details.pickup_address
@@ -242,7 +306,9 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                     position={dropoffLocation}
                     icon={{
                       url: DROPOFF_ICON,
-                      scaledSize: new window.google.maps.Size(40, 40),
+                      scaledSize: isMobileScreen
+                        ? new window.google.maps.Size(30, 30)
+                        : new window.google.maps.Size(35, 35),
                     }}
                     title={
                       trackingData?.job_details?.dropoff_details.dropoff_address
@@ -305,6 +371,23 @@ const TrackingMapCompo = ({ trackingData, isLoaded, isMobileScreen }) => {
                     </p>
                   </div>
                 </InfoWindow>
+              )}
+
+              {directions && (
+                <>
+                  <DirectionsRenderer
+                    directions={directions}
+                    options={{
+                      polylineOptions: {
+                        strokeColor: "blue",
+                        strokeOpacity: 0.6,
+                        strokeWeight: 5,
+                      },
+                      suppressMarkers: true,
+                      preserveViewport: true,
+                    }}
+                  />
+                </>
               )}
             </>
           )}

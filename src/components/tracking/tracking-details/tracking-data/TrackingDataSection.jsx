@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import './TrackingDataSection.css'
 import UserLogo from "../../../../assets/images/user.png"
-import { JOB_STATUS_JSON } from '../../../../Api/api';
+import { JOB_STATUS_JSON } from '../../../../utils/helper';
 import { ArrowUpCircle, Check, GeoAlt } from 'react-bootstrap-icons';
 import { Timeline, TimelineItem } from './Timeline';
 import dayjs from 'dayjs';
 import { openImageInNewTab } from '../../../../utils/helper';
 
-const JobSummaryData = ({trackingData}) => {
+const JobSummaryData = ({ trackingData }) => {
 
-  if(trackingData !== null && trackingData?.job_details?.job_summary?.length > 0) {
+  if (trackingData !== null && trackingData?.job_details?.job_summary?.length > 0) {
     const jobCompletionIndex = trackingData?.job_details?.job_summary?.findIndex(job => job.job_completion_summary)
-    if(jobCompletionIndex === -1) {
+    if (jobCompletionIndex === -1) {
       return (
         <>
           {trackingData?.job_details?.job_summary?.map((job, index) => (
             <Timeline key={job.id}>
-                <TimelineItem time={dayjs(job.time).format('hh:mm a')} date={job.date} gradient={`${index % 2 === 0 ? 'gradient-1' : 'gradient-2'}`}>
-                  <p>{job.msg}</p>
-                </TimelineItem>
+              <TimelineItem time={dayjs(job.time).format('hh:mm a')} date={job.date} gradient={`${index % 2 === 0 ? 'gradient-1' : 'gradient-2'}`}>
+                <p>{job.msg}</p>
+              </TimelineItem>
             </Timeline>
           ))}
         </>
@@ -50,7 +50,7 @@ const JobSummaryData = ({trackingData}) => {
   }
 };
 
-const TrackingDataSection = ({trackingData, isMobileScreen}) => {
+const TrackingDataSection = ({ trackingData, isMobileScreen }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const scrollToTop = () => {
@@ -62,7 +62,7 @@ const TrackingDataSection = ({trackingData, isMobileScreen}) => {
       });
     }
   };
-  
+
   useEffect(() => {
     const toggleVisibility = () => {
       const trackingDataSection = document.querySelector('.tracking-details-container');
@@ -72,14 +72,14 @@ const TrackingDataSection = ({trackingData, isMobileScreen}) => {
         setIsVisible(false);
       }
     };
-    
-  
+
+
     const trackingDataSection = document.querySelector('.tracking-details-container');
     trackingDataSection.addEventListener("scroll", toggleVisibility);
-  
+
     return () => trackingDataSection.removeEventListener("scroll", toggleVisibility);
   }, []);
-  
+
 
   return (
     <>
@@ -91,9 +91,8 @@ const TrackingDataSection = ({trackingData, isMobileScreen}) => {
               <section className='driver-details'>
                 <article className='driver-image'>
                   <img src={trackingData?.job_details?.driver_details?.profile ? `${process.env.REACT_APP_USER_IMAGE_URL}/${trackingData.job_details.driver_details.profile}` : UserLogo} alt="Driver Logo" onClick={() => {
-                    if(trackingData.job_details.driver_details.profile) {
-                      openImageInNewTab(`${process.env.REACT_APP_USER_IMAGE_URL}/${
-                          trackingData.job_details.driver_details.profile
+                    if (trackingData.job_details.driver_details.profile) {
+                      openImageInNewTab(`${process.env.REACT_APP_USER_IMAGE_URL}/${trackingData.job_details.driver_details.profile
                         }`)
                     }
                   }} />
@@ -101,7 +100,7 @@ const TrackingDataSection = ({trackingData, isMobileScreen}) => {
                 <article className='driver-info'>
                   <header>Driver : </header>
                   <footer className='driver-name'>{trackingData?.job_details?.driver_details?.name ? trackingData.job_details.driver_details.name : "No Driver Assigned"}</footer>
-                </article>        
+                </article>
               </section>
             )}
 
@@ -113,7 +112,7 @@ const TrackingDataSection = ({trackingData, isMobileScreen}) => {
               </article>
               <article className='consignment-code'>
                 <header>Consignment No : </header>
-                <footer>{trackingData?.tracking_details?.consignment_no || "N/A"}</footer>
+                <footer>#{trackingData?.tracking_details?.consignment_no || "N/A"}</footer>
               </article>
               <article className='order_no'>
                 <header>Order No : </header>
@@ -124,7 +123,7 @@ const TrackingDataSection = ({trackingData, isMobileScreen}) => {
             {/* Job Status */}
             <section className='job-status'>
               <header>Job Status : </header>
-              <footer style={{backgroundColor: `${trackingData?.job_details?.job_status === JOB_STATUS_JSON.created ? "rgb(217, 119, 6)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.accepted ? "rgb(37, 99, 235)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.pickup ? "rgb(147, 51, 234)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.running ? "rgb(8, 145, 178)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.completed ? "rgb(22, 163, 74)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.cancelled ? "rgb(220, 38, 38)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.returned ? "rgb(101, 163, 13)" : ""}`}}>
+              <footer style={{ backgroundColor: `${trackingData?.job_details?.job_status === JOB_STATUS_JSON.created ? "rgb(217, 119, 6)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.accepted ? "rgb(37, 99, 235)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.pickup ? "rgb(147, 51, 234)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.running ? "rgb(8, 145, 178)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.completed ? "rgb(22, 163, 74)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.cancelled ? "rgb(220, 38, 38)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.returned ? "rgb(101, 163, 13)" : ""}` }}>
                 {trackingData?.job_details?.status}
               </footer>
             </section>
@@ -158,9 +157,8 @@ const TrackingDataSection = ({trackingData, isMobileScreen}) => {
               <section className='driver-details'>
                 <article className='driver-image'>
                   <img src={trackingData?.job_details?.driver_details?.profile ? `${process.env.REACT_APP_USER_IMAGE_URL}/${trackingData.job_details.driver_details.profile}` : UserLogo} alt="Driver Logo" onClick={() => {
-                    if(trackingData.job_details.driver_details.profile) {
-                      openImageInNewTab(`${process.env.REACT_APP_USER_IMAGE_URL}/${
-                          trackingData.job_details.driver_details.profile
+                    if (trackingData.job_details.driver_details.profile) {
+                      openImageInNewTab(`${process.env.REACT_APP_USER_IMAGE_URL}/${trackingData.job_details.driver_details.profile
                         }`)
                     }
                   }} />
@@ -168,7 +166,7 @@ const TrackingDataSection = ({trackingData, isMobileScreen}) => {
                 <article className='driver-info'>
                   <header>Driver : </header>
                   <footer className='driver-name'>{trackingData?.job_details?.driver_details?.name ? trackingData.job_details.driver_details.name : "No Driver Assigned"}</footer>
-                </article>        
+                </article>
               </section>
             )}
 
@@ -199,11 +197,11 @@ const TrackingDataSection = ({trackingData, isMobileScreen}) => {
               <section className='status-details'>
                 <section className='job-status'>
                   <header>Job Status : </header>
-                  <footer style={{backgroundColor: `${trackingData?.job_details?.job_status === JOB_STATUS_JSON.created ? "rgb(217, 119, 6)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.accepted ? "rgb(37, 99, 235)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.pickup ? "rgb(147, 51, 234)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.running ? "rgb(8, 145, 178)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.completed ? "rgb(22, 163, 74)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.cancelled ? "rgb(220, 38, 38)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.returned ? "rgb(101, 163, 13)" : ""}`}}>
+                  <footer style={{ backgroundColor: `${trackingData?.job_details?.job_status === JOB_STATUS_JSON.created ? "rgb(217, 119, 6)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.accepted ? "rgb(37, 99, 235)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.pickup ? "rgb(147, 51, 234)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.running ? "rgb(8, 145, 178)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.completed ? "rgb(22, 163, 74)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.cancelled ? "rgb(220, 38, 38)" : trackingData?.job_details?.job_status === JOB_STATUS_JSON.returned ? "rgb(101, 163, 13)" : ""}` }}>
                     {trackingData?.job_details?.status}
                   </footer>
                 </section>
-                
+
                 {trackingData?.job_details?.delivered_at && (
                   <section className='delivered-details'>
                     <header>Delivered At : </header>
@@ -211,20 +209,20 @@ const TrackingDataSection = ({trackingData, isMobileScreen}) => {
                   </section>
                 )}
               </section>
-            
+
               {/* Timeline - Job Summary */}
-            <JobSummaryData trackingData={trackingData} /> 
+              <JobSummaryData trackingData={trackingData} />
             </section>
             {isVisible && isMobileScreen && (
-            <div>
-              <button className="scroll-top " onClick={scrollToTop}>
-                <ArrowUpCircle width={20} height={20}/>
-              </button>
-            </div>
+              <div>
+                <button className="scroll-top " onClick={scrollToTop}>
+                  <ArrowUpCircle width={20} height={20} />
+                </button>
+              </div>
             )}
           </article>
         )}
-       {/* {isVisible && isMobileScreen && (
+        {/* {isVisible && isMobileScreen && (
           <div>
             <button className="scroll-top " onClick={scrollToTop}>
               <ArrowUpCircle width={20} height={20}/>
