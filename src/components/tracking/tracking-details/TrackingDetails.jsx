@@ -7,6 +7,7 @@ import TrackingHeader from './tracking-header/TrackingHeader';
 import TrackingMapCompo from './tracking-map/TrackingMapCompo';
 import TrackingDataSection from './tracking-data/TrackingDataSection';
 import { toast } from 'react-toastify';
+import { JOB_STATUS_JSON } from '../../../utils/helper';
 
 const TrackingDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -45,13 +46,13 @@ const TrackingDetails = () => {
           url: `${process.env.REACT_APP_API_URL}job-tracking-code`,
           data: trackingData,
         })
-        if(res.status !== driverDetails.SUCCESS_CODE) {
+        if (res.status !== driverDetails.SUCCESS_CODE) {
           navigate("/");
-          toast.error(res.response.data.message || "Invalid Code"); 
+          toast.error(res.response.data.message || "Invalid Code");
         } else {
           setIsLoading(true);
           const trackingRes = await getTrackingDetails(queryStr);
-          if(trackingRes.status === driverDetails.SUCCESS_CODE) {
+          if (trackingRes.status === driverDetails.SUCCESS_CODE) {
             setTrackingData(trackingRes.data.data);
           } else {
             toast.error(trackingRes?.response?.data?.message || "Something went wrong")
@@ -85,10 +86,10 @@ const TrackingDetails = () => {
   }, []);
 
   const handleTrackingSearch = async () => {
-    if(searchText) {
+    if (searchText) {
       setIsLoading(true);
       const res = await getTrackingDetails(searchText);
-      if(res.status === driverDetails.SUCCESS_CODE) {
+      if (res.status === driverDetails.SUCCESS_CODE) {
         setTrackingData(res.data.data);
         const newSearchParams = new URLSearchParams(location.search);
         newSearchParams.set('code', res.data.data.tracking_details.tracking_code || res.data.data.tracking_details.consignment_no);
@@ -101,7 +102,7 @@ const TrackingDetails = () => {
     }
   };
 
-  if(isLoading || !isLoaded) return <CustomLoader />
+  if (isLoading || !isLoaded) return <CustomLoader />
 
   return (
     <section className='tracking-details-container'>
@@ -111,7 +112,15 @@ const TrackingDetails = () => {
       {trackingData !== null && Object.keys(trackingData).length > 0 && (
         <div className='tracking-details-section'>
           {/* Google Map Section */}
-          <TrackingMapCompo trackingData={trackingData} isLoaded={isLoaded} isMobileScreen={isMobileScreen} />
+          {(trackingData?.job_details?.job_status === JOB_STATUS_JSON.pickup || trackingData?.job_details?.job_status === JOB_STATUS_JSON.running) ? (
+            <TrackingMapCompo trackingData={trackingData} isLoaded={isLoaded} isMobileScreen={isMobileScreen} />
+          ) : (
+            <section className='tracking-map-container'>
+              <img src={`${process.env
+                .REACT_APP_STATIC_MAP_IMG
+                }/${trackingData?.job_details?.static_map_img}`} alt="Map" />
+            </section>
+          )}
           {/* Tracking Details Section */}
           <TrackingDataSection trackingData={trackingData} isMobileScreen={isMobileScreen} />
         </div>

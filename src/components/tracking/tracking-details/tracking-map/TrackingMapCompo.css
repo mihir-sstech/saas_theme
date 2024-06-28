@@ -34,7 +34,8 @@
     text-transform: capitalize;
 }
 
-.tracking-details-container .tracking-details-section .tracking-map-container .pickup-details, .tracking-details-container .tracking-details-section .tracking-map-container .dropoff-details {
+.tracking-details-container .tracking-details-section .tracking-map-container .pickup-details,
+.tracking-details-container .tracking-details-section .tracking-map-container .dropoff-details {
     padding: 8px 0;
     display: flex;
     flex-direction: column;
@@ -42,20 +43,54 @@
     width: 200px;
 }
 
-.tracking-details-container .tracking-details-section .tracking-map-container .pickup-details .pickup-address-details, .tracking-details-container .tracking-details-section .tracking-map-container .dropoff-details .dropoff-address-details {
+.tracking-details-container .tracking-details-section .tracking-map-container .pickup-details .pickup-address-details,
+.tracking-details-container .tracking-details-section .tracking-map-container .dropoff-details .dropoff-address-details {
     font-weight: 600;
 }
 
-.tracking-details-container .tracking-details-section .tracking-map-container .pickup-details .pickup-address-details span, .tracking-details-container .tracking-details-section .tracking-map-container .dropoff-details .dropoff-address-details span {
+.tracking-details-container .tracking-details-section .tracking-map-container .pickup-details .pickup-address-details span,
+.tracking-details-container .tracking-details-section .tracking-map-container .dropoff-details .dropoff-address-details span {
     font-weight: 400;
 }
 
-.tracking-details-container .tracking-details-section .tracking-map-container .pickup-details .pickup-maps-details, .tracking-details-container .tracking-details-section .tracking-map-container .dropoff-details .dropoff-maps-details {
+.tracking-details-container .tracking-details-section .tracking-map-container .pickup-details .pickup-maps-details,
+.tracking-details-container .tracking-details-section .tracking-map-container .dropoff-details .dropoff-maps-details {
     font-weight: 600;
     color: rgb(26 115 232);
     cursor: pointer;
 }
 
-.tracking-details-container .tracking-details-section .tracking-map-container .pickup-details .pickup-maps-details:hover, .tracking-details-container .tracking-details-section .tracking-map-container .dropoff-details .dropoff-maps-details:hover {
+.tracking-details-container .tracking-details-section .tracking-map-container .pickup-details .pickup-maps-details:hover,
+.tracking-details-container .tracking-details-section .tracking-map-container .dropoff-details .dropoff-maps-details:hover {
     text-decoration: underline;
+}
+
+.tracking-details-container .tracking-details-section .tracking-map-container {
+    flex: 3;
+}
+
+@media (max-width: 767px) {
+    .tracking-details-container .tracking-details-section .tracking-map-container img {
+        width: 100%;
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 1250px) {
+    .tracking-details-container .tracking-details-section .tracking-map-container img {
+        width: 70%;
+    }
+}
+
+@media (min-width: 1375px) {
+    .tracking-details-container .tracking-details-section .tracking-map-container img {
+        min-width: calc(100%-406.11px);
+        width: 75%;
+    }
+}
+
+@media (min-width: 1630px) {
+    .tracking-details-container .tracking-details-section .tracking-map-container img {
+        width: 85%;
+    }
 }
